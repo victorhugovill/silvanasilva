@@ -1707,14 +1707,15 @@
             });
         });
 
-        // Observer para animações
+        // ✅ OBSERVER CORRIGIDO: anima apenas uma vez e nunca remove a classe "appear"
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('appear');
-                } else {
-                    entry.target.classList.remove('appear');
+                    // Para de observar o elemento após a animação, mantendo-o visível para sempre
+                    observer.unobserve(entry.target);
                 }
+                // ❌ Removido o else que tirava a classe "appear"
             });
         }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
 

@@ -1019,19 +1019,19 @@
             color: var(--dourado);
         }
 
-.area-card .card-text {
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transition: max-height 0.7s ease, opacity 0.7s ease,
+        .area-card .card-text {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.7s ease, opacity 0.7s ease,
                 margin-top 0.7s ease, margin-bottom 0.7s ease;
-    margin-top: 0;
-    margin-bottom: 0;
-    color: var(--cinza-medio);
-    font-weight: 400;
-    line-height: 1.85;
-    font-size: 0.95rem;
-}
+            margin-top: 0;
+            margin-bottom: 0;
+            color: var(--cinza-medio);
+            font-weight: 400;
+            line-height: 1.85;
+            font-size: 0.95rem;
+        }
 
         /* BOTÃO FECHAR (oculto por padrão) */
         .area-card .close-btn {
@@ -1064,23 +1064,23 @@
             /* um dourado mais escuro */
         }
 
-.area-card .expand-hint {
-    margin-top: 10px;
-    font-size: 1rem;
-    color: var(--dourado);
-    opacity: 0.7;
-    margin-bottom: -2.5rem;
-    /* Transição LENTA para quando o "+" reaparecer (card fechado) */
-    transition: opacity 1.2s ease 0.3s, transform 1.2s ease 0.3s;
-}
+        .area-card .expand-hint {
+            margin-top: 10px;
+            font-size: 1rem;
+            color: var(--dourado);
+            opacity: 0.7;
+            margin-bottom: -2.5rem;
+            /* Transição LENTA para quando o "+" reaparecer (card fechado) */
+            transition: opacity 1.2s ease 0.3s, transform 1.2s ease 0.3s;
+        }
 
-.area-card.expanded .expand-hint {
-    opacity: 0;
-    transform: scale(0.8);
-    pointer-events: none;
-    /* Transição RÁPIDA para quando o "+" sumir (card expandido) */
-    transition: opacity 0.25s ease, transform 0.25s ease;
-}
+        .area-card.expanded .expand-hint {
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+            /* Transição RÁPIDA para quando o "+" sumir (card expandido) */
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
 
         /* CARD EXPANDIDO */
         .area-card.expanded .card-text {
@@ -1138,6 +1138,10 @@
             justify-content: center;
             gap: 20px;
         }
+
+        #contato .section-title {
+    font-size: 2.6rem;
+}
 
         #areas .section-title::before {
             display: none;

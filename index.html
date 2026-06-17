@@ -105,12 +105,21 @@
         }
 
         @keyframes fadeInLogo {
-            to { opacity: 1; }
+            to {
+                opacity: 1;
+            }
         }
 
         @keyframes pulseSplash {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
         }
 
         /* MAIN CONTENT */
@@ -154,6 +163,8 @@
 
         .header-logo img:hover {
             opacity: 1;
+                        transform: scale(1.04);
+
         }
 
         .nav-menu {
@@ -227,6 +238,8 @@
             background-color: var(--dourado-escuro);
             border-color: var(--dourado-escuro);
             transform: translateY(-2px);
+                        transform: scale(1.02);
+
             box-shadow: 0 6px 16px rgba(168, 140, 74, 0.25);
         }
 
@@ -299,14 +312,17 @@
             z-index: 15;
         }
 
-        .hero-texture {
+        .hero-video-background {
             position: absolute;
-            inset: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             z-index: 0;
             pointer-events: none;
-            overflow: hidden;
-            opacity: 0.8;
-            mix-blend-mode: multiply;
+            /* opcional: um leve overlay para manter a legibilidade */
+            /* filter: brightness(0.9); */
         }
 
         .hero-watermark {
@@ -331,11 +347,13 @@
 
         .hero .container {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
+            /* alinha os blocos pelo topo */
             justify-content: space-between;
             gap: 60px;
             width: 100%;
             max-width: 1150px;
+            margin-top: -6rem;
             position: relative;
             z-index: 20;
         }
@@ -346,8 +364,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { box-shadow: 0 4px 12px rgba(168, 140, 74, 0.2); }
-            50% { box-shadow: 0 4px 24px rgba(168, 140, 74, 0.5); }
+
+            0%,
+            100% {
+                box-shadow: 0 4px 12px rgba(168, 140, 74, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 4px 24px rgba(168, 140, 74, 0.5);
+            }
         }
 
         .hero-left .tagline {
@@ -355,20 +380,33 @@
             font-size: 1.3rem;
             color: var(--dourado);
             margin-bottom: 25px;
-            font-weight: 600;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 2px;
             border-left: 2px solid var(--dourado);
             padding-left: 20px;
+
+            /* Sombra preta bem mais intensa e espalhada */
+            text-shadow:
+                0 0 40px rgba(80, 51, 51, 0.9);
+
+
+            /* Contorno escuro que delineia cada letra (Chrome, Safari, Edge) */
+            -webkit-text-stroke: 0.1px rgba(0, 0, 0, 0.6);
         }
 
         .hero-left h1 {
             font-size: 2.9rem;
-            color: var(--cinza-escuro);
+            color: var(--branco);
+            /* branco puro do site */
             line-height: 1.1;
             font-weight: 600;
+            opacity: 0.78;
             letter-spacing: 0.5px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(0, 0, 0, 0.75),
+                0 0 4px rgba(168, 140, 74, 0.25);
+            /* sombra leve para destacar */
         }
 
         .hero-left p.hero-desc {
@@ -376,12 +414,18 @@
             margin-bottom: 12px;
             line-height: 1.55;
             max-width: 320px;
+            opacity: 0.78;
             margin-left: auto;
             margin-right: auto;
             text-align: justify;
             hyphens: auto;
             word-break: break-word;
             overflow-wrap: break-word;
+            color: var(--branco);
+            /* branco puro */
+            text-shadow: 0 0 30px rgba(0, 0, 0, 0.75),
+                0 0 4px rgba(168, 140, 74, 0.25);
+            /* sombra suave */
         }
 
         .hero-right {
@@ -389,6 +433,8 @@
             width: auto;
             max-width: 480px;
             margin-left: auto;
+            margin-top: 55px;
+            /* ← NOVA LINHA: empurra o bloco para baixo */
             margin-right: 10px;
             display: flex;
             flex-direction: column;
@@ -416,21 +462,25 @@
         .stat-icon {
             font-size: 2rem;
             color: var(--dourado);
-            opacity: 0.7;
+            opacity: 0.88;
             flex-shrink: 0;
             width: 36px;
             text-align: center;
+            text-shadow: 0 0 32px rgba(0, 0, 0, 0.78),
+                0 0 5px rgba(168, 140, 74, 0.2);
         }
 
         .stat-number {
             font-size: 2.6rem;
             font-weight: 600;
+            opacity: 0.88;
             color: var(--dourado);
-            opacity: 0.8;
             font-family: var(--fonte-corpo);
             line-height: 1;
             min-width: 100px;
             text-align: left;
+            text-shadow: 0 0 32px rgba(0, 0, 0, 0.78),
+                0 0 5px rgba(168, 140, 74, 0.2);
         }
 
         .stat-text {
@@ -445,18 +495,23 @@
             font-size: 0.98rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: var(--cinza-escuro);
+            color: var(--branco);
+            opacity: 0.78;
             font-weight: 700;
             font-family: var(--fonte-corpo);
             white-space: nowrap;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
         }
 
         .stat-text p:last-child {
             font-size: 0.88rem;
-            color: var(--cinza-medio);
+            color: var(--branco);
+            opacity: 0.79;
+            /* levemente mais suave que o primeiro, mas ainda branco */
             font-weight: 500;
             font-family: var(--fonte-corpo);
             white-space: nowrap;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         .btn-primary {
@@ -465,9 +520,10 @@
             padding: 16px 40px;
             border-radius: 2px;
             font-weight: 600;
+            margin-top: 14px;
             font-size: 0.8rem;
             letter-spacing: 1.5px;
-            border: 1px solid var(--dourado);
+            border: 3px solid var(--dourado);
             cursor: pointer;
             transition: var(--transicao);
             display: inline-flex;
@@ -485,28 +541,46 @@
             background-color: var(--dourado-escuro);
             border-color: var(--dourado-escuro);
             transform: translateY(-2px);
+                        transform: scale(1.07);
+
             box-shadow: 0 6px 16px rgba(168, 140, 74, 0.25);
         }
 
         .hero-social-icons {
+            position: absolute;
+            bottom: 90px;
+            /* distância da borda inferior da seção */
+            left: 50%;
+            opacity: 0.5;
+            transform: translateX(-50%);
             display: flex;
-            gap: 20px;
-            flex-direction: row;
+            justify-content: center;
             align-items: center;
-            justify-content: flex-end;
+            z-index: 20;
+            /* garante que fique sobre o vídeo */
+        }
+
+        /* Animação de entrada dos ícones sociais (mantém a centralização) */
+        .hero-social-icons.fade-in-up {
+            opacity: 0;
+            transform: translateX(-50%) translateY(40px);
+            transition: opacity 0.6s ease, transform 0.9s ease;
+        }
+
+        .hero-social-icons.fade-in-up.appear {
+            opacity: 0.6;
+            /* mesmo valor da opacidade final definida */
+            transform: translateX(-50%) translateY(0);
         }
 
         .social-label {
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: var(--cinza-medio);
+            color: var(--branco);
+            opacity: 1;
             font-weight: 600;
-        }
-
-        .icon-row {
-            display: flex;
-            gap: 12px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 3);
         }
 
         .icon-circle {
@@ -514,20 +588,36 @@
             height: 45px;
             border-radius: 0;
             background: transparent;
-            border: 1px solid var(--linha);
+            border: none;
+            opacity: 0.8;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--cinza-medio);
-            font-size: 1rem;
+            color: var(--branco);
+            font-size: 1.7rem;
             transition: var(--transicao);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .icon-row {
+            display: flex;
+            gap: 12px;
         }
 
         .icon-circle:hover {
-            border-color: var(--dourado);
             color: var(--dourado);
-            background-color: rgba(168, 140, 74, 0.05);
-            transform: translateY(-2px);
+            transform: scale(1.2);
+            /* crescimento bem perceptível */
+            text-shadow: 0 0 18px rgba(0, 0, 0, 0.7),
+                /* sombra preta forte atrás do ícone */
+                0 0 8px rgba(168, 140, 74, 0.5);
+            /* leve brilho dourado */
+            background-color: transparent;
+            opacity: 1.2;
+            /* fundo transparente */
+            transition: transform 0.25s ease,
+                text-shadow 0.25s ease,
+                box-shadow 0.25s ease;
         }
 
         /* ========== LINHAS DIVISÓRIAS ========== */
@@ -584,16 +674,15 @@
             overflow: hidden;
         }
 
-        #sobre::before {
-            content: "";
+        .sobre-video-background {
             position: absolute;
-            inset: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             z-index: 0;
             pointer-events: none;
-            opacity: 0.15;
-            mix-blend-mode: multiply;
-            background-image: radial-gradient(circle at 50% 50%, #5a4a3a 0.8px, transparent 1px);
-            background-size: 4px 4px;
         }
 
         #sobre .container {
@@ -722,6 +811,7 @@
 
         .area-card:hover .icon img {
             filter: invert(0.38) sepia(0.45) saturate(2.3) hue-rotate(5deg) brightness(0.95);
+       
         }
 
         .area-card h3,
@@ -772,27 +862,30 @@
 
         .about-text h2 {
             font-size: 2.4rem;
-            color: var(--cinza-escuro);
+            color: rgba(255, 255, 255, 0.8);
+            /* branco com 80% de opacidade */
             margin-bottom: 10px;
             font-weight: 600;
         }
 
         .about-text .oab {
-            font-size: 0.85rem;
+            font-size: 1.15rem;
             color: var(--dourado);
-            font-weight: 700;
-            margin-bottom: 30px;
+            font-weight: 800;
+            margin-top: -0.5rem;
+            margin-bottom: 20px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.7px;
             display: block;
         }
 
         .about-text p {
             margin-bottom: 20px;
-            font-weight: 400;
-            color: var(--cinza-medio);
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.70);
+            /* branco com 85% de opacidade */
             line-height: 1.9;
-            font-size: 1rem;
+            font-size: 1.2rem;
             text-align: justify;
         }
 
@@ -801,6 +894,7 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 25px 35px;
             margin-top: 40px;
+            opacity: 0.8;
             padding-top: 40px;
             border-top: 1px solid var(--linha);
         }
@@ -809,7 +903,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            color: var(--cinza-escuro);
+            color: rgba(255, 255, 255, 0.8);
             font-weight: 600;
             font-size: 0.8rem;
             text-transform: uppercase;
@@ -841,6 +935,18 @@
             border-left: 3px solid var(--dourado);
             padding-left: 40px;
         }
+
+        .info-item p a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-block;        /* necessário para o transform funcionar */
+}
+
+.info-item p a:hover {
+    color: var(--dourado);
+    transform: scale(1.04);
+}
 
         .contact-info h2 {
             font-size: 2.2rem;
@@ -880,6 +986,11 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
+
+        #contato {
+    padding-top: 100px;      /* antes era 120px */
+    padding-bottom: 40px;
+}
 
         /* Classes auxiliares para os blocos "Outros Canais" */
         .desktop-social {
@@ -927,6 +1038,8 @@
             color: var(--dourado);
             background-color: rgba(168, 140, 74, 0.05);
             transform: translateY(-2px);
+                        transform: scale(1.2);
+
         }
 
         .map-container {
@@ -971,8 +1084,13 @@
         }
 
         @keyframes scrollText {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
         /* ANIMAÇÕES DE FADE IN AO SCROLL */
@@ -987,9 +1105,17 @@
             transform: translateY(0);
         }
 
-        .area-card:nth-child(1) { transition-delay: 0.1s; }
-        .area-card:nth-child(2) { transition-delay: 0.2s; }
-        .area-card:nth-child(3) { transition-delay: 0.3s; }
+        .area-card:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .area-card:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .area-card:nth-child(3) {
+            transition-delay: 0.3s;
+        }
 
         /* RESPONSIVO MOBILE */
         @media (max-width: 992px) {
@@ -999,7 +1125,9 @@
                 gap: 60px;
             }
 
-            .hero-left { max-width: 100%; }
+            .hero-left {
+                max-width: 100%;
+            }
 
             .hero-right {
                 border-left: none;
@@ -1009,7 +1137,9 @@
                 align-items: flex-start;
             }
 
-            .hero-left h1 { font-size: 4rem; }
+            .hero-left h1 {
+                font-size: 4rem;
+            }
 
             .hero-stats {
                 flex-direction: row;
@@ -1027,7 +1157,9 @@
                 flex: 1;
             }
 
-            .about-highlights { grid-template-columns: 1fr; }
+            .about-highlights {
+                grid-template-columns: 1fr;
+            }
 
             .contact-wrapper {
                 flex-direction: column;
@@ -1035,7 +1167,9 @@
             }
 
             .map-container,
-            .map-container iframe { min-height: 350px; }
+            .map-container iframe {
+                min-height: 350px;
+            }
 
             .nav-menu {
                 position: absolute;
@@ -1055,7 +1189,9 @@
                 border-top: 1px solid rgba(255, 255, 255, 0.1);
             }
 
-            .nav-menu li { border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+            .nav-menu li {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
 
             .nav-menu li a {
                 color: var(--branco);
@@ -1076,49 +1212,170 @@
                 opacity: 1;
             }
 
-            .hamburger { display: flex; }
-            .header-btn { display: none; }
+            .hamburger {
+                display: flex;
+            }
+
+            .header-btn {
+                display: none;
+            }
         }
 
         @media (max-width: 768px) {
-            .hero { padding: 130px 0 60px 0; }
-            .hero::before, .hero::after { display: none; }
-            .hero-watermark { display: none; }
-            .hero-left h1 { font-size: 2.4rem; }
-            .hero-left .tagline { font-size: 1rem; margin-bottom: 16px; }
-            .hero-left p.hero-desc { font-size: 1.05rem; margin-bottom: 32px; }
-            .section-title { font-size: 2.2rem; }
-            .section { padding: 80px 0; }
-            .container { padding: 0 16px; }
-            .header-container { padding: 0 16px; }
-            .hero-stats { flex-direction: column; gap: 28px; }
-            .stat-number { font-size: 2.2rem; }
-            .stat-icon { font-size: 1.8rem; }
-            .stat-text p:first-child { font-size: 0.85rem; }
-            .stat-text p:last-child { font-size: 0.75rem; }
-            .about-highlights { gap: 16px 25px; }
-            .highlight-item { font-size: 0.75rem; }
-            .contact-info { padding-left: 24px; }
-            .btn-primary { padding: 13px 32px; font-size: 0.75rem; }
-            .areas-grid { gap: 32px; grid-template-columns: 1fr; }
-            .area-card { padding: 35px 28px; opacity: 0.85; }
-            .area-card .icon img { width: 65px; height: 65px; }
-            .area-card h3 { font-size: 1.3rem; }
-            .area-card p { font-size: 0.9rem; }
-            .about-photo { max-height: 280px; }
-            .about-text h2 { font-size: 2rem; }
-            .about-text p { font-size: 0.95rem; line-height: 1.75; }
-            .map-container, .map-container iframe { min-height: 320px; }
-            .contact-wrapper { margin-top: 40px; }
-            .icon-circle { width: 42px; height: 42px; }
-            .social-link { width: 42px; height: 42px; }
-            .hero-social-icons { width: 100%; }
-            .icon-row { gap: 10px; }
-            .section-subtitle { font-size: 0.95rem; max-width: 100%; }
+            .hero {
+                padding: 130px 0 60px 0;
+            }
+
+            .hero::before,
+            .hero::after {
+                display: none;
+            }
+
+            .hero-watermark {
+                display: none;
+            }
+
+            .hero-left h1 {
+                font-size: 2.4rem;
+            }
+
+            .hero-left .tagline {
+                font-size: 1rem;
+                margin-bottom: 16px;
+            }
+
+            .hero-left p.hero-desc {
+                font-size: 1.05rem;
+                margin-bottom: 32px;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .section {
+                padding: 80px 0;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+
+            .header-container {
+                padding: 0 16px;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 28px;
+            }
+
+            .stat-number {
+                font-size: 2.2rem;
+            }
+
+            .stat-icon {
+                font-size: 1.8rem;
+            }
+
+            .stat-text p:first-child {
+                font-size: 0.85rem;
+            }
+
+            .stat-text p:last-child {
+                font-size: 0.75rem;
+            }
+
+            .about-highlights {
+                gap: 16px 25px;
+            }
+
+            .highlight-item {
+                font-size: 0.75rem;
+            }
+
+            .contact-info {
+                padding-left: 24px;
+            }
+
+            .btn-primary {
+                padding: 13px 32px;
+                font-size: 0.75rem;
+            }
+
+            .areas-grid {
+                gap: 32px;
+                grid-template-columns: 1fr;
+            }
+
+            .area-card {
+                padding: 35px 28px;
+                opacity: 0.85;
+            }
+
+            .area-card .icon img {
+                width: 65px;
+                height: 65px;
+            }
+
+            .area-card h3 {
+                font-size: 1.3rem;
+            }
+
+            .area-card p {
+                font-size: 0.9rem;
+            }
+
+            .about-photo {
+                max-height: 280px;
+            }
+
+            .about-text h2 {
+                font-size: 2rem;
+            }
+
+            .about-text p {
+                font-size: 0.95rem;
+                line-height: 1.75;
+            }
+
+            .map-container,
+            .map-container iframe {
+                min-height: 320px;
+            }
+
+            .contact-wrapper {
+                margin-top: 40px;
+            }
+
+            .icon-circle {
+                width: 42px;
+                height: 42px;
+            }
+
+            .social-link {
+                width: 42px;
+                height: 42px;
+            }
+
+            .hero-social-icons {
+                width: 100%;
+            }
+
+            .icon-row {
+                gap: 10px;
+            }
+
+            .section-subtitle {
+                font-size: 0.95rem;
+                max-width: 100%;
+            }
         }
 
         @media (max-width: 576px) {
-            .site-header { padding: 5px 0 60px; }
+            .site-header {
+                padding: 5px 0 60px;
+            }
 
             .header-container {
                 position: relative;
@@ -1143,7 +1400,9 @@
                 padding-right: 19px;
             }
 
-            #splash img { max-width: 100px; }
+            #splash img {
+                max-width: 100px;
+            }
 
             .header-logo {
                 position: absolute;
@@ -1153,7 +1412,9 @@
                 margin: 0;
             }
 
-            .header-logo img { height: 65px; }
+            .header-logo img {
+                height: 65px;
+            }
 
             .nav-menu {
                 top: 100%;
@@ -1168,7 +1429,9 @@
                 visibility: visible;
             }
 
-            .header-btn { display: none; }
+            .header-btn {
+                display: none;
+            }
 
             .hero-left h1 {
                 font-size: 1.6rem;
@@ -1192,8 +1455,14 @@
                 opacity: 0.6;
             }
 
-            .hero-left { text-align: center; }
-            .hero-right { align-items: center; width: 100%; }
+            .hero-left {
+                text-align: center;
+            }
+
+            .hero-right {
+                align-items: center;
+                width: 100%;
+            }
 
             .section-title {
                 font-size: 1.7rem;
@@ -1201,9 +1470,17 @@
                 padding-bottom: 14px;
             }
 
-            .section-title::after { width: 45px; }
-            .section { padding: 60px 0; }
-            .container { padding: 0 16px; }
+            .section-title::after {
+                width: 45px;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
 
             .hero-stats {
                 flex-direction: row;
@@ -1224,15 +1501,46 @@
                 padding: 0 4px;
             }
 
-            .stat-number { font-size: 1.9rem; text-align: left; min-width: unset; }
-            .stat-text { min-width: unset; text-align: left; }
-            .stat-text p:first-child { font-size: 0.75rem; }
-            .stat-text p:last-child { font-size: 0.75rem; opacity: 0.6; }
-            .stat-icon { font-size: 1.7rem; justify-self: end; margin: -9px 0 0 0; }
+            .stat-number {
+                font-size: 1.9rem;
+                text-align: left;
+                min-width: unset;
+            }
 
-            .about-highlights { gap: 12px 18px; padding-top: 20px; margin-top: 20px; }
-            .highlight-item { font-size: 0.7rem; gap: 8px; }
-            .highlight-item i { font-size: 0.95rem; }
+            .stat-text {
+                min-width: unset;
+                text-align: left;
+            }
+
+            .stat-text p:first-child {
+                font-size: 0.75rem;
+            }
+
+            .stat-text p:last-child {
+                font-size: 0.75rem;
+                opacity: 0.6;
+            }
+
+            .stat-icon {
+                font-size: 1.7rem;
+                justify-self: end;
+                margin: -9px 0 0 0;
+            }
+
+            .about-highlights {
+                gap: 12px 18px;
+                padding-top: 20px;
+                margin-top: 20px;
+            }
+
+            .highlight-item {
+                font-size: 0.7rem;
+                gap: 8px;
+            }
+
+            .highlight-item i {
+                font-size: 0.95rem;
+            }
 
             /* Contato mobile */
             .contact-info {
@@ -1258,9 +1566,18 @@
                 margin-bottom: 24px;
             }
 
-            .info-item i { font-size: 1.2rem; }
-            .info-item p { font-size: 0.9rem; line-height: 1.65; }
-            .info-item p strong { font-size: 0.75rem; }
+            .info-item i {
+                font-size: 1.2rem;
+            }
+
+            .info-item p {
+                font-size: 0.9rem;
+                line-height: 1.65;
+            }
+
+            .info-item p strong {
+                font-size: 0.75rem;
+            }
 
             .contact-info .btn-primary {
                 display: flex;
@@ -1271,7 +1588,9 @@
             }
 
             /* Controle dos blocos "Outros Canais" */
-            .desktop-social { display: none; }
+            .desktop-social {
+                display: none;
+            }
 
             .mobile-social {
                 display: block;
@@ -1297,8 +1616,15 @@
                 border: none;
             }
 
-            .map-container, .map-container iframe { min-height: 280px; }
-            .contact-wrapper { margin-top: 32px; gap: 32px; }
+            .map-container,
+            .map-container iframe {
+                min-height: 280px;
+            }
+
+            .contact-wrapper {
+                margin-top: 32px;
+                gap: 32px;
+            }
 
             /* Hero social */
             .hero-social-icons {
@@ -1311,11 +1637,31 @@
                 border: none;
             }
 
-            .social-label { font-size: 0.65rem; margin-bottom: 6px; }
-            .icon-row { gap: 38px; margin-top: 10px; opacity: 0.8; }
-            .icon-circle { border: none; font-size: 1.6rem; }
-            .section-subtitle { font-size: 0.85rem; margin: 0 auto 32px; }
-            .footer-scroll span { padding: 0 16px; font-size: 0.5rem; }
+            .social-label {
+                font-size: 0.65rem;
+                margin-bottom: 6px;
+            }
+
+            .icon-row {
+                gap: 38px;
+                margin-top: 10px;
+                opacity: 0.8;
+            }
+
+            .icon-circle {
+                border: none;
+                font-size: 1.6rem;
+            }
+
+            .section-subtitle {
+                font-size: 0.85rem;
+                margin: 0 auto 32px;
+            }
+
+            .footer-scroll span {
+                padding: 0 16px;
+                font-size: 0.5rem;
+            }
 
             .hero-left .btn-primary {
                 font-size: 0;
@@ -1347,23 +1693,82 @@
             }
 
             /* Sobre mobile */
-            #sobre { padding-top: 30px; min-height: 500px; }
-            .about-text h2 { font-size: 1.6rem; margin-top: -54px; margin-bottom: 6px; text-align: center; }
-            #sobre .about-text p.oab { font-size: 0.75rem; margin-bottom: 16px; text-align: center; }
-            .about-text p { font-size: 0.9rem; line-height: 1.65; margin-bottom: 14px; text-align: justify; max-width: 90%; margin-left: auto; margin-right: auto; }
-            .about-photo { max-height: none; max-width: 340px; margin: 0 auto; }
-            .about-photo img { width: 100%; height: auto; object-fit: contain; }
-            #contato .section-title { font-size: 1.55rem; }
+            #sobre {
+                padding-top: 30px;
+                min-height: 500px;
+            }
+
+            .about-text h2 {
+                font-size: 1.6rem;
+                margin-top: -54px;
+                margin-bottom: 6px;
+                text-align: center;
+            }
+
+            #sobre .about-text p.oab {
+                font-size: 0.75rem;
+                margin-bottom: 16px;
+                text-align: center;
+            }
+
+            .about-text p {
+                font-size: 0.9rem;
+                line-height: 1.65;
+                margin-bottom: 14px;
+                text-align: justify;
+                max-width: 90%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .about-photo {
+                max-height: none;
+                max-width: 340px;
+                margin: 0 auto;
+            }
+
+            .about-photo img {
+                width: 100%;
+                height: auto;
+                object-fit: contain;
+            }
+
+            #contato .section-title {
+                font-size: 1.55rem;
+            }
         }
 
         @media (max-width: 360px) {
-            .hero-left h1 { font-size: 1.6rem; }
-            .section-title { font-size: 1.5rem; }
-            .btn-primary { padding: 11px 20px; font-size: 0.65rem; min-width: 160px; gap: 6px; }
-            .btn-primary i { font-size: 0.8rem; }
-            .area-card { padding: 24px 16px; }
-            .area-card h3 { font-size: 1rem; }
-            .about-text h2 { font-size: 1.4rem; }
+            .hero-left h1 {
+                font-size: 1.6rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .btn-primary {
+                padding: 11px 20px;
+                font-size: 0.65rem;
+                min-width: 160px;
+                gap: 6px;
+            }
+
+            .btn-primary i {
+                font-size: 0.8rem;
+            }
+
+            .area-card {
+                padding: 24px 16px;
+            }
+
+            .area-card h3 {
+                font-size: 1rem;
+            }
+
+            .about-text h2 {
+                font-size: 1.4rem;
+            }
         }
 
         @media (min-width: 993px) {
@@ -1419,34 +1824,10 @@
 
         <!-- HERO -->
         <section class="hero" id="home">
-            <div class="hero-texture">
-                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-                    <defs>
-                        <filter id="crack-distortion" x="0" y="0" width="100%" height="100%">
-                            <feTurbulence type="fractalNoise" baseFrequency="0.02 0.0005" numOctaves="4" result="noise" />
-                            <feDisplacementMap in="SourceGraphic" in2="noise" scale="30" xChannelSelector="R" yChannelSelector="G" result="displaced" />
-                            <feGaussianBlur in="displaced" stdDeviation="0.3" />
-                        </filter>
-                        <filter id="smoke">
-                            <feTurbulence type="fractalNoise" baseFrequency="0.015 0.004" numOctaves="3" result="smokeNoise" />
-                            <feColorMatrix type="matrix" values="
-                                0.8  0.2  0.0  0  0.9
-                                0.1  0.8  0.1  0  0.87
-                                0.0  0.1  0.8  0  0.84
-                                0    0    0    1  0" />
-                            <feGaussianBlur stdDeviation="6" />
-                        </filter>
-                    </defs>
-                    <rect width="100%" height="100%" fill="#f5f0e6" />
-                    <rect width="100%" height="100%" filter="url(#smoke)" opacity="0.5" style="mix-blend-mode: multiply;" />
-                    <rect width="100%" height="100%" fill="url(#grain)" opacity="0.15" style="mix-blend-mode: multiply;" />
-                    <defs>
-                        <pattern id="grain" width="4" height="4" patternUnits="userSpaceOnUse">
-                            <circle cx="2" cy="2" r="0.8" fill="#5a4a3a" />
-                        </pattern>
-                    </defs>
-                </svg>
-            </div>
+            <!-- VÍDEO DE FUNDO (substitui a textura SVG) -->
+            <video class="hero-video-background" autoplay muted loop playsinline>
+                <source src="videos/capa.mp4" type="video/mp4">
+            </video>
 
             <div class="hero-watermark">
                 <img src="img/marca.svg" alt="">
@@ -1456,8 +1837,9 @@
                 <div class="hero-left fade-in-up">
                     <p class="tagline">Advocacia Especializada</p>
                     <h1>Silvana Silva Advocacia</h1>
-                    <p class="hero-desc">Mais de uma década de experiência em Direito Civil, com foco em soluções eficazes e humanizadas para suas questões legais.</p>
-                    <a href="https://wa.me/5548991619100?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" class="btn-primary">
+                    <p class="hero-desc">Soluções eficazes e humanizadas para suas questões legais.</p>
+                    <a href="https://wa.me/5548991619100?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta."
+                        target="_blank" class="btn-primary">
                         <i class="fa-solid fa-calendar-plus"></i> Agendar Consulta
                     </a>
                 </div>
@@ -1488,15 +1870,21 @@
                             <i class="fa-solid fa-handshake stat-icon"></i>
                         </div>
                     </div>
-                    <div class="hero-social-icons">
-                        <span class="social-label">Outros Canais</span>
-                        <div class="icon-row">
-                            <a href="mailto:silvana@silvanasilva.adv.br" class="icon-circle" title="E-mail"><i class="fa-solid fa-envelope"></i></a>
-                            <a href="https://wa.me/5548991619100?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" class="icon-circle" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-                            <a href="https://instagram.com/silvanasilva.adv" target="_blank" class="icon-circle" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                            <a href="https://www.linkedin.com/in/silvana-silva-a6b92965?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" class="icon-circle" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
+                </div>
+            </div><!-- FIM DO .container -->
+
+            <!-- Ícones sociais centralizados no fundo da Hero -->
+            <div class="hero-social-icons fade-in-up">
+                <div class="icon-row">
+                    <a href="mailto:silvana@silvanasilva.adv.br" class="icon-circle" title="E-mail"><i
+                            class="fa-solid fa-envelope"></i></a>
+                    <a href="https://wa.me/5548991619100?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta."
+                        target="_blank" class="icon-circle" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://instagram.com/silvanasilva.adv" target="_blank" class="icon-circle"
+                        title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/silvana-silva-a6b92965?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+                        target="_blank" class="icon-circle" title="LinkedIn"><i
+                            class="fa-brands fa-linkedin-in"></i></a>
                 </div>
             </div>
         </section>
@@ -1505,7 +1893,8 @@
         <section class="section" id="areas">
             <div class="container">
                 <h2 class="section-title fade-in-up">Áreas de Atuação</h2>
-                <p class="section-subtitle fade-in-up">Atendimento especializado e humanizado nas principais demandas do direito civil.</p>
+                <p class="section-subtitle fade-in-up">Atendimento especializado e humanizado nas principais demandas do
+                    direito civil.</p>
                 <div class="areas-grid">
                     <div class="area-card fade-in-up">
                         <div class="icon"><img src="img/fami.png" alt="Ícone Direito de Família"></div>
@@ -1515,32 +1904,42 @@
                     <div class="area-card fade-in-up">
                         <div class="icon"><img src="img/consumi.png" alt="Ícone Direito do Consumidor"></div>
                         <h3>Direito do Consumidor</h3>
-                        <p>Defesa contra abusos em compras, serviços, bancos e planos de saúde. Trabalhando para restabelecer seus direitos.</p>
+                        <p>Defesa contra abusos em compras, serviços, bancos e planos de saúde. Trabalhando para
+                            restabelecer seus direitos.</p>
                     </div>
                     <div class="area-card fade-in-up">
                         <div class="icon"><img src="img/media.png" alt="Ícone Mediação"></div>
                         <h3>Mediação e Consultoria</h3>
-                        <p>Soluções extrajudiciais que preservam relacionamentos e economizam tempo e recursos para todos os envolvidos.</p>
+                        <p>Soluções extrajudiciais que preservam relacionamentos e economizam tempo e recursos para
+                            todos os envolvidos.</p>
                     </div>
                 </div>
             </div>
         </section>
-
         <!-- SOBRE -->
         <section class="section" id="sobre">
+            <!-- VÍDEO DE FUNDO DA SEÇÃO SOBRE -->
+            <video class="sobre-video-background" autoplay muted loop playsinline>
+                <source src="videos/fundo.mp4" type="video/mp4">
+            </video>
+
             <div class="container">
                 <div class="about-content">
                     <div class="about-photo fade-in-up"><img src="img/silvana.jpg" alt="Dra. Silvana Silva"></div>
                     <div class="about-text fade-in-up">
                         <h2>Dra. Silvana Silva</h2>
                         <p class="oab">OAB/SC 37.489</p>
-                        <p>Com mais de 10 anos de experiência, construiu uma carreira sólida defendendo os interesses de seus clientes com ética, transparência e dedicação. Formada pela Universidade Federal de Santa Catarina (UFSC), possui especialização em Direito Civil e Processual Civil.</p>
-                        <p>Sua atuação é pautada pela escuta atenta e pela busca de soluções eficazes, seja na esfera judicial ou extrajudicial. Para Silvana, cada cliente é único e merece uma estratégia personalizada.</p>
-                        <div class="about-highlights">
-                            <div class="highlight-item"><i class="fa-solid fa-check-circle"></i> Atendimento Personalizado</div>
-                            <div class="highlight-item"><i class="fa-solid fa-check-circle"></i> Conduta Ética</div>
-                            <div class="highlight-item"><i class="fa-solid fa-check-circle"></i> Atualização Constante</div>
-                            <div class="highlight-item"><i class="fa-solid fa-check-circle"></i> Resultados Comprovados</div>
+                        <p>Com mais de 10 anos de experiência, construiu uma carreira sólida defendendo os interesses de
+                            seus clientes com ética, transparência e dedicação.</p>
+                        <p>Sua atuação é pautada pela escuta atenta e pela busca de soluções eficazes, seja na esfera
+                            judicial ou extrajudicial. Para Silvana, cada cliente é único e merece uma estratégia
+                            personalizada.</p>
+               <div class="about-highlights">
+    <div class="highlight-item"><i class="fa-solid fa-check-circle"></i> Mais de 10 Anos de Experiência</div>
+        <div class="highlight-item"><i class="fa-solid fa-check-circle"></i> Pós-Graduada em Direito Civil</div>
+    <div class="highlight-item"><i class="fa-solid fa-check-circle"></i> Atendimento presencial e Online</div>
+    <div class="highlight-item"><i class="fa-solid fa-check-circle"></i> Pós-Graduada em Ciências Penais</div>
+</div>
                         </div>
                     </div>
                 </div>
@@ -1557,9 +1956,11 @@
                             <i class="fa-solid fa-location-dot"></i>
                             <div>
                                 <p>
-                                    <strong>Endereço</strong> 
-                                    <a href="https://maps.google.com/?q=Rua+Jos%C3%A9+Brognoli,+117,+Saco+dos+Lim%C3%B5es,+Florian%C3%B3polis+SC" target="_blank" rel="noopener">
-                                        Rua José Brognoli, nº 117, Saco dos Limões<br>Opportunitá Empresarial, Sala 603 <br> Florianópolis/SC – CEP 88.045-520
+                                    <strong>Endereço</strong>
+                                    <a href="https://maps.google.com/?q=Rua+Jos%C3%A9+Brognoli,+117,+Saco+dos+Lim%C3%B5es,+Florian%C3%B3polis+SC"
+                                        target="_blank" rel="noopener">
+                                        Rua José Brognoli, nº 117, Saco dos Limões<br>Opportunitá Empresarial, Sala 603
+                                        <br> Florianópolis/SC – CEP 88.045-520
                                     </a>
                                 </p>
                             </div>
@@ -1568,7 +1969,7 @@
                             <i class="fa-solid fa-phone"></i>
                             <div>
                                 <p>
-                                    <strong>Telefone</strong> 
+                                    <strong>Telefone</strong>
                                     <a href="tel:+5548991619100">(48) 99161-9100</a>
                                 </p>
                             </div>
@@ -1577,7 +1978,7 @@
                             <i class="fa-solid fa-envelope"></i>
                             <div>
                                 <p>
-                                    <strong>E-mail</strong> 
+                                    <strong>E-mail</strong>
                                     <a href="mailto:silvana@silvanasilva.adv.br">silvana@silvanasilva.adv.br</a>
                                 </p>
                             </div>
@@ -1587,30 +1988,41 @@
                         <div class="desktop-social">
                             <span class="social-links-label">Outros Canais</span>
                             <div class="social-links">
-                                <a href="https://wa.me/5548991619100" target="_blank" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
-                                <a href="https://instagram.com/silvanasilva.adv" target="_blank" class="social-link"><i class="fa-brands fa-instagram"></i></a>
-                                <a href="mailto:silvana@silvanasilva.adv.br" class="social-link"><i class="fa-solid fa-envelope"></i></a>
-                                <a href="https://www.linkedin.com/in/silvana-silva-a6b92965?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
+                                <a href="https://wa.me/5548991619100" target="_blank" class="social-link"><i
+                                        class="fa-brands fa-whatsapp"></i></a>
+                                <a href="https://instagram.com/silvanasilva.adv" target="_blank" class="social-link"><i
+                                        class="fa-brands fa-instagram"></i></a>
+                                <a href="mailto:silvana@silvanasilva.adv.br" class="social-link"><i
+                                        class="fa-solid fa-envelope"></i></a>
+                                <a href="https://www.linkedin.com/in/silvana-silva-a6b92965?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+                                    target="_blank" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
                             </div>
                         </div>
 
-                        <a href="https://wa.me/5548991619100?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" class="btn-primary">
+                        <a href="https://wa.me/5548991619100?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta."
+                            target="_blank" class="btn-primary">
                             <i class="fa-solid fa-message"></i> Enviar Mensagem
                         </a>
                     </div>
 
                     <div class="map-container fade-in-up">
-                        <iframe src="https://maps.google.com/maps?q=Rua%20Jos%C3%A9%20Brognoli%2C%20117%2C%20Saco%20dos%20Lim%C3%B5es%2C%20Florian%C3%B3polis%2C%20SC&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe
+                            src="https://maps.google.com/maps?q=Rua%20Jos%C3%A9%20Brognoli%2C%20117%2C%20Saco%20dos%20Lim%C3%B5es%2C%20Florian%C3%B3polis%2C%20SC&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
 
                     <!-- Outros Canais (mobile) -->
                     <div class="mobile-social">
                         <span class="social-links-label">Outros Canais</span>
                         <div class="social-links">
-                            <a href="https://wa.me/5548991619100" target="_blank" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
-                            <a href="https://instagram.com/silvanasilva.adv" target="_blank" class="social-link"><i class="fa-brands fa-instagram"></i></a>
-                            <a href="mailto:silvana@silvanasilva.adv.br" class="social-link"><i class="fa-solid fa-envelope"></i></a>
-                            <a href="https://www.linkedin.com/in/silvana-silva-a6b92965?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
+                            <a href="https://wa.me/5548991619100" target="_blank" class="social-link"><i
+                                    class="fa-brands fa-whatsapp"></i></a>
+                            <a href="https://instagram.com/silvanasilva.adv" target="_blank" class="social-link"><i
+                                    class="fa-brands fa-instagram"></i></a>
+                            <a href="mailto:silvana@silvanasilva.adv.br" class="social-link"><i
+                                    class="fa-solid fa-envelope"></i></a>
+                            <a href="https://www.linkedin.com/in/silvana-silva-a6b92965?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+                                target="_blank" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
                         </div>
                     </div>
                 </div>
@@ -1687,7 +2099,7 @@
 
         // Clique nos links do menu
         document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
+            link.addEventListener('click', function (e) {
                 const targetId = this.getAttribute('href').substring(1);
                 const isMobile = window.innerWidth <= 992;
 

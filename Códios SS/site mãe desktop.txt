@@ -51,7 +51,6 @@
             scroll-behavior: smooth;
         }
 
-
         body {
             font-family: var(--fonte-corpo);
             color: var(--cinza-escuro);
@@ -59,53 +58,6 @@
             line-height: 1.6;
             overflow-x: hidden;
             font-weight: 400;
-            width: 100vw;
-            /* garante largura máxima */
-            max-width: 100%;
-            /* limita overflow */
-        }
-
-        html {
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-            /* adiciona aqui também */
-        }
-
-        .hero {
-            /* bloqueia overflow na seção hero */
-        }
-
-        .hero-watermark {
-            position: absolute;
-            inset: 0;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none;
-            overflow: visible;
-            /* era hidden em uma versão, o antigo usa visible */
-        }
-
-        .hero-watermark img {
-            width: 340%;
-            height: 340%;
-            object-fit: contain;
-            margin-top: 90rem;
-            margin-left: 5rem;
-            opacity: 0.6;
-        }
-
-        /* Adicione esta regra para mobile especificamente */
-        @media (max-width: 576px) {
-            .hero-watermark {
-                display: none;
-                /* remove a marca d'água em mobile */
-            }
-
-            .hero-watermark img {
-                display: none;
-            }
         }
 
         h1,
@@ -218,32 +170,6 @@
 
         .logo-desktop {
             display: block;
-        }
-
-        .logo-mobile {
-            display: none;
-        }
-
-        .logo-desktop {
-            display: block;
-        }
-
-        /* COMPORTAMENTO PADRÃO – DESKTOP */
-        .desktop-only {
-            display: block;
-        }
-
-        .mobile-only {
-            display: none;
-        }
-
-        .hide-on-mobile {
-            display: block;
-        }
-
-        .header-logo img:hover {
-            opacity: 1;
-            transform: scale(1.04);
         }
 
         .header-logo img:hover {
@@ -408,6 +334,26 @@
             pointer-events: none;
             /* opcional: um leve overlay para manter a legibilidade */
             /* filter: brightness(0.9); */
+        }
+
+        .hero-watermark {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .hero-watermark img {
+            width: 340%;
+            height: 340%;
+            object-fit: contain;
+            margin-top: 90rem;
+            margin-left: 5rem;
+            opacity: 0.6;
         }
 
         .hero .container {
@@ -603,11 +549,6 @@
             animation: pulse 2s ease-in-out infinite;
         }
 
-        /* ← NOVA LINHA: esconde o botão do hero-right no desktop */
-        .hero-right .btn-primary {
-            display: none !important;
-        }
-
         .btn-primary:hover {
             background-color: var(--dourado-escuro);
             border-color: var(--dourado-escuro);
@@ -717,15 +658,19 @@
         }
 
         #sobre {
-            background-color: var(--branco);
-            /* ← branco padrão, era #f5f0e6 */
-            overflow: visible;
-            /* ← era hidden */
+            background-color: #f5f0e6;
+            overflow: hidden;
         }
 
         .sobre-video-background {
-            display: none;
-            /* ← esconde o vídeo */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            pointer-events: none;
         }
 
         #sobre .container {
@@ -746,6 +691,7 @@
 
         #contato {
             background-color: var(--fundo-claro);
+            overflow: hidden;
         }
 
         .section-title {
@@ -815,8 +761,8 @@
 
         .about-text h2 {
             font-size: 2.4rem;
-            color: var(--dourado);
-            /* ← DOURADO ✨ */
+            color: rgba(255, 255, 255, 0.8);
+            /* branco com 80% de opacidade */
             margin-bottom: 10px;
             font-weight: 600;
         }
@@ -835,13 +781,11 @@
         .about-text p {
             margin-bottom: 20px;
             font-weight: 500;
-            color: var(--cinza-escuro);
-            /* ← CINZA ESCURO (elegante) */
+            color: rgba(255, 255, 255, 0.70);
+            /* branco com 85% de opacidade */
             line-height: 1.9;
             font-size: 1.2rem;
             text-align: justify;
-            opacity: 1;
-            /* ← remover transparência */
         }
 
         .about-highlights {
@@ -849,8 +793,7 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 25px 35px;
             margin-top: 40px;
-            opacity: 1;
-            /* ← era 0.8, agora 1 */
+            opacity: 0.8;
             padding-top: 40px;
             border-top: 1px solid var(--linha);
         }
@@ -859,8 +802,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            color: var(--cinza-escuro);
-            /* ← CINZA ESCURO (elegante) */
+            color: rgba(255, 255, 255, 0.8);
             font-weight: 600;
             font-size: 0.8rem;
             text-transform: uppercase;
@@ -954,106 +896,14 @@
         /* ===================================
    SEÇÃO ÁREAS DE ATUAÇÃO – COM EXPANSÃO
    =================================== */
-        /* ÁREAS COMO SUBSECÇÃO DENTRO DE SOBRE */
-        .areas-subsection {
-            margin-top: 60px;
-            padding-top: 60px;
-            border-top: 1px solid var(--linha);
-        }
-
-        .areas-subtitle {
-            font-family: var(--fonte-titulos);
-            font-size: 2rem;
-            /* ← menor que seção principal (2.8rem) */
-            color: var(--cinza-escuro);
-            margin-bottom: 12px;
-            letter-spacing: 1.2px;
-            font-weight: 600;
-            text-align: left;
-            /* ← alinhado à esquerda como subtítulo */
-        }
-
-        .areas-description {
-            color: var(--cinza-medio);
-            font-size: 0.95rem;
-            margin-bottom: 40px;
-            font-weight: 400;
-            line-height: 1.8;
-            max-width: 600px;
-        }
-
-        .areas-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            /* ← cards menores */
-            gap: 35px;
-            /* ← reduzido de 45px */
-            margin-bottom: 0;
-            z-index: 20;
-        }
-
-        .area-card {
-            background-color: transparent;
-            border-radius: 5px;
-            z-index: 20;
-            padding: 25px 18px;
-            /* ← reduzido de 30px 20px */
-            position: relative;
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            border: 2px solid transparent;
-            box-shadow: 0 8px 32px rgba(59, 46, 24, 0.45);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+        #areas {
+            background: linear-gradient(135deg, var(--fundo-claro) 0%, rgba(168, 140, 74, 0.02) 100%);
             min-height: auto;
-            cursor: pointer;
-            opacity: 0;
+            /* ou apenas apague a linha */
+            padding-top: 70px;
+            padding-bottom: 50px;
+            /* ajuste opcional para um respiro menor */
         }
-
-        .area-card h4 {
-            /* ← h4 em vez de h3 */
-            font-size: 1.1rem;
-            /* ← reduzido de 1.23rem */
-            color: var(--cinza-escuro);
-            margin-bottom: 12px;
-            /* ← reduzido de 15px */
-            letter-spacing: 1.2px;
-            font-weight: 700;
-            transition: color 0.4s ease;
-        }
-
-        .area-card .icon {
-            font-size: 2.5rem;
-            color: var(--dourado);
-            margin-bottom: 25px;
-            /* ← reduzido de 30px */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 80px;
-            /* ← reduzido de 90px */
-            height: 80px;
-            background: linear-gradient(135deg, rgba(168, 140, 74, 0.1) 0%, rgba(168, 140, 74, 0.05) 100%);
-            border-radius: 50%;
-            border: 2px solid rgba(168, 140, 74, 0.15);
-            box-shadow: 0 12px 24px rgba(168, 140, 74, 0.12);
-            transition: all 0.4s ease;
-            position: relative;
-            z-index: 2;
-        }
-
-        .area-card .icon img {
-            width: 55px;
-            /* ← reduzido de 60px */
-            height: 55px;
-            object-fit: contain;
-            filter: invert(0.48) sepia(0.38) saturate(2.1) hue-rotate(0deg);
-            transition: filter 0.4s ease;
-        }
-
-        /* Manter todos os outros estilos de hover, expanded, etc. */
 
         #areas::before {
             content: '';
@@ -1181,6 +1031,7 @@
         .area-card .card-text {
             max-height: 0;
             opacity: 0;
+            overflow: hidden;
             transition: max-height 0.7s ease, opacity 0.7s ease,
                 margin-top 0.7s ease, margin-bottom 0.7s ease;
             margin-top: 0;
@@ -1823,7 +1674,7 @@
 
         @media (max-width: 576px) {
             .site-header {
-                padding: 5px 0 54px;
+                padding: 5px 0 50px;
             }
 
             /* Troca a imagem no mobile */
@@ -1835,16 +1686,6 @@
                 display: block;
             }
 
-
-            /* Inverte visibilidade para mobile */
-            .desktop-only {
-                display: none;
-            }
-
-
-            .hide-on-mobile {
-                display: none;
-            }
 
             .header-container {
                 position: relative;
@@ -1911,20 +1752,12 @@
             }
 
             .hero-left .tagline {
-                font-size: .7rem;
-                letter-spacing: 1.4px;
-                /* espaçamento reduzido para caber na tela */
-                margin-top: -3rem;
-                background-color: #1816164b;
-
+                font-size: 0.8rem;
+                margin-bottom: 12px;
+                margin-top: -5px;
+                border-left: none;
+                padding-left: 0;
                 text-align: center;
-                text-shadow: 7px 2px 8px rgba(0, 0, 0, 0.99);
-            }
-
-
-            /* NOVA REGRA: muda a fonte apenas do texto mobile */
-            .hero-left .mobile-only {
-                font-family: 'Cormorant Garamond', serif, bold;
             }
 
             .hero-left p.hero-desc {
@@ -1941,7 +1774,6 @@
             .hero-right {
                 align-items: center;
                 width: 100%;
-                margin-top: 0rem;
             }
 
             .section-title {
@@ -1967,7 +1799,6 @@
                 flex-wrap: wrap;
                 gap: 24px 36px;
                 width: 100%;
-                margin-top: 20rem;
                 align-items: flex-start;
                 justify-content: center;
                 padding: 0 12px;
@@ -1986,15 +1817,11 @@
                 font-size: 1.9rem;
                 text-align: left;
                 min-width: unset;
-                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
-                /* ← sombra preta forte */
-
             }
 
             .stat-text {
                 min-width: unset;
                 text-align: left;
-
             }
 
             .stat-text p:first-child {
@@ -2002,18 +1829,12 @@
             }
 
             .stat-text p:last-child {
-                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
-                /* ← sombra preta forte */
-
                 font-size: 0.75rem;
-                opacity: 0.67;
+                opacity: 0.6;
             }
 
             .stat-icon {
                 font-size: 1.7rem;
-                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
-                /* ← sombra preta forte */
-
                 justify-self: end;
                 margin: -9px 0 0 0;
             }
@@ -2135,8 +1956,8 @@
 
             .icon-row {
                 gap: 38px;
-                margin-top: 30px;
-                opacity: 0.98;
+                margin-top: 10px;
+                opacity: 0.8;
             }
 
             .icon-circle {
@@ -2154,28 +1975,33 @@
                 font-size: 0.5rem;
             }
 
-            /* ✅ NOVO CSS PARA MOBILE - BOTÃO MOBILE ONLY */
             .hero-left .btn-primary {
-                display: none !important;
-            }
-
-            .hero-right {
+                font-size: 0;
+                position: relative;
                 display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 30px;
-            }
-
-
-            .hero-right .btn-primary {
-                display: flex !important;
-                margin-top: -0.1rem;
-                margin-bottom: 6.1rem;
-                width: 87%;
+                width: 95%;
+                margin: 45px auto -5px;
                 align-items: center;
                 justify-content: center;
                 gap: 8px;
+            }
+
+            .hero-left .btn-primary::before {
+                font-family: "Font Awesome 6 Free";
+                content: "\f086";
+                font-size: 0.75rem;
+                font-weight: 900;
+                color: var(--branco);
+                margin-right: 4px;
+            }
+
+            .hero-left .btn-primary::after {
+                content: "Entrar em Contato";
                 font-size: 0.7rem;
+                font-weight: 600;
+                color: var(--branco);
+                text-transform: uppercase;
+                letter-spacing: 1px;
             }
 
             /* Sobre mobile */
@@ -2297,6 +2123,7 @@
 
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="#home" class="nav-link active">Início</a></li>
+                    <li><a href="#areas" class="nav-link">Áreas de Atuação</a></li>
                     <li><a href="#sobre" class="nav-link">Sobre</a></li>
                     <li><a href="#contato" class="nav-link">Contato</a></li>
                 </ul>
@@ -2310,6 +2137,7 @@
 
         <!-- HERO -->
         <section class="hero" id="home">
+            <!-- VÍDEO DE FUNDO (substitui a textura SVG) -->
             <video class="hero-video-background" autoplay muted loop playsinline>
                 <source src="videos/capa.mp4" type="video/mp4">
             </video>
@@ -2320,10 +2148,9 @@
 
             <div class="container">
                 <div class="hero-left fade-in-up">
-                    <p class="tagline desktop-only">Advocacia Especializada</p>
-                    <p class="tagline mobile-only">Soluções eficazes para suas questões legais.</p>
-                    <h1 class="hide-on-mobile">Silvana Silva Advocacia</h1>
-                    <p class="hero-desc hide-on-mobile">Soluções eficazes para suas questões legais.</p>
+                    <p class="tagline">Advocacia Especializada</p>
+                    <h1>Silvana Silva Advocacia</h1>
+                    <p class="hero-desc">Soluções eficazes e humanizadas para suas questões legais.</p>
                     <a href="https://wa.me/5548991619100?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta."
                         target="_blank" class="btn-primary">
                         <i class="fa-solid fa-calendar-plus"></i> Agendar Consulta
@@ -2353,10 +2180,6 @@
                             <i class="fa-solid fa-handshake stat-icon"></i>
                         </div>
                     </div>
-                    <a href="https://wa.me/5548991619100?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta."
-                        target="_blank" class="btn-primary">
-                        <i class="fa-solid fa-calendar-plus"></i> Agendar Consulta
-                    </a>
                 </div>
             </div><!-- FIM DO .container -->
 
@@ -2376,9 +2199,50 @@
             </div>
         </section>
 
+        <!-- ÁREAS DE ATUAÇÃO -->
+        <section class="section" id="areas">
+            <div class="container">
+                <h2 class="section-title fade-in-up">Áreas de Atuação</h2>
+                <p class="section-subtitle fade-in-up">Atendimento especializado e humanizado nas principais demandas do
+                    direito civil.</p>
+                <div class="areas-grid">
+                    <div class="area-card fade-in-up">
+                        <div class="icon"><img src="img/fami.png" alt="Ícone Direito de Família"></div>
+                        <h3>Família e Sucessões</h3>
+                        <div class="expand-hint"><i class="fa-solid fa-plus"></i></div>
+                        <p class="card-text">Atuação em divórcios, guarda de filhos, pensão alimentícia, inventários,
+                            partilhas e demais áreas da família.</p>
+                        <button class="close-btn"><i class="fa-solid fa-xmark"></i> Fechar</button>
+                    </div>
 
+                    <div class="area-card fade-in-up">
+                        <div class="icon"><img src="img/consumi.png" alt="Ícone Direito do Consumidor"></div>
+                        <h3>Direito do Consumidor</h3>
+                        <div class="expand-hint"><i class="fa-solid fa-plus"></i></div>
+                        <p class="card-text">Defesa contra abusos em compras, serviços, bancos e planos de saúde.
+                            Trabalhando para restabelecer seus direitos.</p>
+                        <button class="close-btn"><i class="fa-solid fa-xmark"></i> Fechar</button>
+                    </div>
+
+                    <div class="area-card fade-in-up">
+                        <div class="icon"><img src="img/media.png" alt="Ícone Mediação"></div>
+                        <h3>Mediação e Consultoria</h3>
+                        <div class="expand-hint"><i class="fa-solid fa-plus"></i></div>
+
+                        <p class="card-text">Soluções extrajudiciais que preservam relacionamentos e economizam tempo e
+                            recursos para todos os envolvidos.</p>
+                        <button class="close-btn"><i class="fa-solid fa-xmark"></i> Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
         <!-- SOBRE -->
         <section class="section" id="sobre">
+            <!-- VÍDEO DE FUNDO DA SEÇÃO SOBRE -->
+            <video class="sobre-video-background" autoplay muted loop playsinline>
+                <source src="videos/fundo.mp4" type="video/mp4">
+            </video>
+
             <div class="container">
                 <div class="about-content">
                     <div class="about-photo fade-in-up"><img src="img/silvana.jpg" alt="Dra. Silvana Silva"></div>
@@ -2402,115 +2266,50 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- NOVO: Áreas de Atuação como subsecção DENTRO de SOBRE -->
-                <div class="areas-subsection fade-in-up">
-                    <h3 class="areas-subtitle">Áreas de Atuação</h3>
-                    <p class="areas-description">Atendimento especializado e humanizado nas principais demandas do
-                        direito civil.</p>
-
-                    <div class="areas-grid">
-                        <div class="area-card fade-in-up">
-                            <div class="icon"><img src="img/fami.png" alt="Ícone Direito de Família"></div>
-                            <h4>Família e Sucessões</h4>
-                            <div class="expand-hint"><i class="fa-solid fa-plus"></i></div>
-                            <p class="card-text">Atuação em divórcios, guarda de filhos, pensão alimentícia,
-                                inventários,
-                                partilhas e demais áreas da família.</p>
-                            <button class="close-btn"><i class="fa-solid fa-xmark"></i> Fechar</button>
-                        </div>
-
-                        <div class="area-card fade-in-up">
-                            <div class="icon"><img src="img/consumi.png" alt="Ícone Direito do Consumidor"></div>
-                            <h4>Direito do Consumidor</h4>
-                            <div class="expand-hint"><i class="fa-solid fa-plus"></i></div>
-                            <p class="card-text">Defesa contra abusos em compras, serviços, bancos e planos de saúde.
-                                Trabalhando para restabelecer seus direitos.</p>
-                            <button class="close-btn"><i class="fa-solid fa-xmark"></i> Fechar</button>
-                        </div>
-
-                        <div class="area-card fade-in-up">
-                            <div class="icon"><img src="img/media.png" alt="Ícone Mediação"></div>
-                            <h4>Mediação e Consultoria</h4>
-                            <div class="expand-hint"><i class="fa-solid fa-plus"></i></div>
-                            <p class="card-text">Soluções extrajudiciais que preservam relacionamentos e economizam
-                                tempo e
-                                recursos para todos os envolvidos.</p>
-                            <button class="close-btn"><i class="fa-solid fa-xmark"></i> Fechar</button>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </section>
+    </div>
+    </section>
 
-
-        <!-- CONTATO -->
-        <section class="section" id="contato">
-            <div class="container">
-                <h2 class="section-title fade-in-up">Localização &amp; Contato</h2>
-                <div class="contact-wrapper">
-                    <div class="contact-info fade-in-up">
-                        <div class="info-item">
-                            <i class="fa-solid fa-location-dot"></i>
-                            <div>
-                                <p>
-                                    <strong>Endereço</strong>
-                                    <a href="https://maps.google.com/?q=Rua+Jos%C3%A9+Brognoli,+117,+Saco+dos+Lim%C3%B5es,+Florian%C3%B3polis+SC"
-                                        target="_blank" rel="noopener">
-                                        Rua José Brognoli, nº 117, Saco dos Limões<br>Opportunitá Empresarial, Sala 603
-                                        <br> Florianópolis/SC – CEP 88.045-520
-                                    </a>
-                                </p>
-                            </div>
+    <!-- CONTATO -->
+    <section class="section" id="contato">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Localização &amp; Contato</h2>
+            <div class="contact-wrapper">
+                <div class="contact-info fade-in-up">
+                    <div class="info-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <p>
+                                <strong>Endereço</strong>
+                                <a href="https://maps.google.com/?q=Rua+Jos%C3%A9+Brognoli,+117,+Saco+dos+Lim%C3%B5es,+Florian%C3%B3polis+SC"
+                                    target="_blank" rel="noopener">
+                                    Rua José Brognoli, nº 117, Saco dos Limões<br>Opportunitá Empresarial, Sala 603
+                                    <br> Florianópolis/SC – CEP 88.045-520
+                                </a>
+                            </p>
                         </div>
-                        <div class="info-item">
-                            <i class="fa-solid fa-phone"></i>
-                            <div>
-                                <p>
-                                    <strong>Telefone</strong>
-                                    <a href="tel:+5548991619100">(48) 99161-9100</a>
-                                </p>
-                            </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <div>
+                            <p>
+                                <strong>Telefone</strong>
+                                <a href="tel:+5548991619100">(48) 99161-9100</a>
+                            </p>
                         </div>
-                        <div class="info-item">
-                            <i class="fa-solid fa-envelope"></i>
-                            <div>
-                                <p>
-                                    <strong>E-mail</strong>
-                                    <a href="mailto:silvana@silvanasilva.adv.br">silvana@silvanasilva.adv.br</a>
-                                </p>
-                            </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <div>
+                            <p>
+                                <strong>E-mail</strong>
+                                <a href="mailto:silvana@silvanasilva.adv.br">silvana@silvanasilva.adv.br</a>
+                            </p>
                         </div>
-
-                        <!-- Outros Canais (desktop) -->
-                        <div class="desktop-social">
-                            <span class="social-links-label">Outros Canais</span>
-                            <div class="social-links">
-                                <a href="https://wa.me/5548991619100" target="_blank" class="social-link"><i
-                                        class="fa-brands fa-whatsapp"></i></a>
-                                <a href="https://instagram.com/silvanasilva.adv" target="_blank" class="social-link"><i
-                                        class="fa-brands fa-instagram"></i></a>
-                                <a href="mailto:silvana@silvanasilva.adv.br" class="social-link"><i
-                                        class="fa-solid fa-envelope"></i></a>
-                                <a href="https://www.linkedin.com/in/silvana-silva-a6b92965?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
-                                    target="_blank" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-
-                        <a href="https://wa.me/5548991619100?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta."
-                            target="_blank" class="btn-primary">
-                            <i class="fa-solid fa-message"></i> Enviar Mensagem
-                        </a>
                     </div>
 
-                    <div class="map-container fade-in-up">
-                        <iframe
-                            src="https://maps.google.com/maps?q=Rua%20Jos%C3%A9%20Brognoli%2C%20117%2C%20Saco%20dos%20Lim%C3%B5es%2C%20Florian%C3%B3polis%2C%20SC&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-
-                    <!-- Outros Canais (mobile) -->
-                    <div class="mobile-social">
+                    <!-- Outros Canais (desktop) -->
+                    <div class="desktop-social">
                         <span class="social-links-label">Outros Canais</span>
                         <div class="social-links">
                             <a href="https://wa.me/5548991619100" target="_blank" class="social-link"><i
@@ -2523,30 +2322,57 @@
                                 target="_blank" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
                         </div>
                     </div>
+
+                    <a href="https://wa.me/5548991619100?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta."
+                        target="_blank" class="btn-primary">
+                        <i class="fa-solid fa-message"></i> Enviar Mensagem
+                    </a>
+                </div>
+
+                <div class="map-container fade-in-up">
+                    <iframe
+                        src="https://maps.google.com/maps?q=Rua%20Jos%C3%A9%20Brognoli%2C%20117%2C%20Saco%20dos%20Lim%C3%B5es%2C%20Florian%C3%B3polis%2C%20SC&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+
+                <!-- Outros Canais (mobile) -->
+                <div class="mobile-social">
+                    <span class="social-links-label">Outros Canais</span>
+                    <div class="social-links">
+                        <a href="https://wa.me/5548991619100" target="_blank" class="social-link"><i
+                                class="fa-brands fa-whatsapp"></i></a>
+                        <a href="https://instagram.com/silvanasilva.adv" target="_blank" class="social-link"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="mailto:silvana@silvanasilva.adv.br" class="social-link"><i
+                                class="fa-solid fa-envelope"></i></a>
+                        <a href="https://www.linkedin.com/in/silvana-silva-a6b92965?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+                            target="_blank" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- FOOTER COM SCROLL INFINITO -->
-        <footer>
-            <div class="footer-scroll">
-                <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
-                    representação</span>
-                <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
-                    representação</span>
-                <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados</span>
-                <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
-                    representação</span>
-                <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
-                    representação</span>
-                <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
-                    representação</span>
-                <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
-                    representação</span>
-                <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
-                    representação</span>
-            </div>
-        </footer>
+    <!-- FOOTER COM SCROLL INFINITO -->
+    <footer>
+        <div class="footer-scroll">
+            <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
+                representação</span>
+            <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
+                representação</span>
+            <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados</span>
+            <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
+                representação</span>
+            <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
+                representação</span>
+            <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
+                representação</span>
+            <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
+                representação</span>
+            <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
+                representação</span>
+        </div>
+    </footer>
     </div>
 
     <script>

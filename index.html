@@ -97,7 +97,7 @@
         }
 
         /* Adicione esta regra para mobile especificamente */
-        @media (max-width: 576px) {
+        @media (max-width: 576px) and (orientation: portrait) {
             .hero-watermark {
                 display: none;
                 /* remove a marca d'água em mobile */
@@ -397,7 +397,9 @@
             z-index: 15;
         }
 
-        .hero-video-background {
+        /* Vídeo padrão (desktop) */
+        .hero-video-desktop {
+            display: block;
             position: absolute;
             top: 0;
             left: 0;
@@ -406,8 +408,30 @@
             object-fit: cover;
             z-index: 0;
             pointer-events: none;
-            /* opcional: um leve overlay para manter a legibilidade */
-            /* filter: brightness(0.9); */
+        }
+
+        /* Vídeo mobile começa escondido */
+        .hero-video-mobile {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Quando a tela for pequena (mobile portrait): esconde desktop e mostra mobile */
+        @media (max-width: 576px) and (orientation: portrait) {
+            .hero-video-desktop {
+                display: none;
+            }
+
+            .hero-video-mobile {
+                display: block;
+            }
         }
 
         .hero .container {
@@ -569,6 +593,8 @@
             text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
         }
 
+
+
         .stat-text p:last-child {
             font-size: 0.88rem;
             color: var(--branco);
@@ -717,10 +743,9 @@
         }
 
         #sobre {
-            background-color: var(--branco);
-            /* ← branco padrão, era #f5f0e6 */
+            background-color: var(--fundo-claro);
+            /* #fcfcf9 – igual ao Contato */
             overflow: visible;
-            /* ← era hidden */
         }
 
         .sobre-video-background {
@@ -834,13 +859,13 @@
 
         .about-text p {
             margin-bottom: 20px;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--cinza-escuro);
             /* ← CINZA ESCURO (elegante) */
             line-height: 1.9;
             font-size: 1.2rem;
             text-align: justify;
-            opacity: 1;
+            opacity: 0.8;
             /* ← remover transparência */
         }
 
@@ -956,9 +981,9 @@
    =================================== */
         /* ÁREAS COMO SUBSECÇÃO DENTRO DE SOBRE */
         .areas-subsection {
-            margin-top: 60px;
+            margin-top: 40px;
             padding-top: 60px;
-            border-top: 1px solid var(--linha);
+            border-top: 4px solid var(--linha);
         }
 
         .areas-subtitle {
@@ -967,19 +992,22 @@
             /* ← menor que seção principal (2.8rem) */
             color: var(--cinza-escuro);
             margin-bottom: 12px;
+            margin-top: -2rem;
             letter-spacing: 1.2px;
             font-weight: 600;
+            opacity: 0.88;
             text-align: left;
             /* ← alinhado à esquerda como subtítulo */
         }
 
         .areas-description {
             color: var(--cinza-medio);
-            font-size: 0.95rem;
+            font-size: 1.15rem;
             margin-bottom: 40px;
             font-weight: 400;
             line-height: 1.8;
-            max-width: 600px;
+            opacity: 0.95;
+            max-width: 900px;
         }
 
         .areas-grid {
@@ -987,8 +1015,6 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             /* ← cards menores */
             gap: 35px;
-            /* ← reduzido de 45px */
-            margin-bottom: 0;
             z-index: 20;
         }
 
@@ -1074,7 +1100,7 @@
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 45px;
             z-index: 20;
-            margin-bottom: 40px;
+            margin-bottom: -20px;
         }
 
         /* CARD INDIVIDUAL */
@@ -1338,109 +1364,6 @@
             transition-delay: 0.3s;
         }
 
-        @media (max-width: 992px) {
-            .section-title {
-                font-size: 2.4rem;
-            }
-
-            .area-card {
-                min-height: auto;
-                padding: 45px 35px;
-            }
-
-            .area-card h3 {
-                font-size: 1.2rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .section-title {
-                font-size: 2rem;
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .section-title::before,
-            .section-title::after {
-                width: 40px;
-                height: 1px;
-            }
-
-            .section-subtitle {
-                font-size: 0.95rem;
-                margin-bottom: 50px;
-            }
-
-            .areas-grid {
-                grid-template-columns: 1fr;
-                gap: 35px;
-            }
-
-            .area-card {
-                min-height: auto;
-                padding: 40px 30px;
-            }
-
-            .area-card h3 {
-                font-size: 1.15rem;
-            }
-
-            .area-card .icon {
-                width: 85px;
-                height: 85px;
-                margin-bottom: 25px;
-            }
-
-            .area-card .icon img {
-                width: 55px;
-                height: 55px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .section-title {
-                font-size: 1.5rem;
-                letter-spacing: 1px;
-                gap: 10px;
-            }
-
-            .section-title::before,
-            .section-title::after {
-                width: 30px;
-            }
-
-            .section-subtitle {
-                font-size: 0.9rem;
-                margin-bottom: 40px;
-            }
-
-            .area-card {
-                padding: 35px 25px;
-                min-height: auto;
-            }
-
-            .area-card h3 {
-                font-size: 1rem;
-                margin-bottom: 12px;
-            }
-
-            .area-card p {
-                font-size: 0.9rem;
-                line-height: 1.8;
-            }
-
-            .area-card .icon {
-                width: 75px;
-                height: 75px;
-                margin-bottom: 20px;
-            }
-
-            .area-card .icon img {
-                width: 50px;
-                height: 50px;
-            }
-        }
-
         /* Classes auxiliares para os blocos "Outros Canais" */
         .desktop-social {
             display: block;
@@ -1566,8 +1489,11 @@
             transition-delay: 0.3s;
         }
 
-        /* RESPONSIVO MOBILE */
-        @media (max-width: 992px) {
+        /* ═══════════════════════════════════════════════════════════════════════════════ */
+        /* RESPONSIVO MOBILE PORTRAIT APENAS - LANDSCAPE USA DESKTOP */
+        /* ═══════════════════════════════════════════════════════════════════════════════ */
+
+        @media (max-width: 992px) and (orientation: portrait) {
             .hero .container {
                 flex-direction: column;
                 text-align: left;
@@ -1670,7 +1596,7 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 768px) and (orientation: portrait) {
             .hero {
                 padding: 130px 0 60px 0;
             }
@@ -1821,7 +1747,7 @@
             }
         }
 
-        @media (max-width: 576px) {
+        @media (max-width: 576px) and (orientation: portrait) {
             .site-header {
                 padding: 5px 0 54px;
             }
@@ -2208,8 +2134,8 @@
             }
 
             .about-photo {
-                max-height: none;
-                max-width: 340px;
+                max-height: 300px;
+                max-width: 360px;
                 margin: 0 auto;
             }
 
@@ -2224,7 +2150,7 @@
             }
         }
 
-        @media (max-width: 360px) {
+        @media (max-width: 360px) and (orientation: portrait) {
             .hero-left h1 {
                 font-size: 1.6rem;
             }
@@ -2270,6 +2196,372 @@
                 overflow-wrap: normal;
             }
         }
+
+        /* ═══════════════════════════════════════════════════════════════════════════════ */
+        /* LANDSCAPE EM CELULARES - PROPORÇÕES EXATAS DO DESKTOP */
+        /* ═══════════════════════════════════════════════════════════════════════════════ */
+
+        @media (max-height: 600px) and (orientation: landscape) {
+            .hero {
+                padding: 180px 0 150px 0;
+                min-height: auto;
+            }
+
+            .hero::before {
+                top: 130px;
+                display: block;
+            }
+
+            .hero::after {
+                bottom: 80px;
+                display: block;
+            }
+
+            .hero .container {
+                gap: 120px;
+                margin-top: -7rem;
+                align-items: center;
+            }
+
+            .hero-left {
+                max-width: 500px;
+            }
+
+            .hero-left h1 {
+                font-size: 1.9rem;
+                margin-bottom: 8px;
+                line-height: 1.2;
+            }
+
+            .hero-left .tagline {
+                font-size: 0.8rem;
+                margin-bottom: 10px;
+                padding-left: 15px;
+                border-left: 1.5px solid var(--dourado);
+            }
+
+            .hero-left p.hero-desc {
+                font-size: 0.75rem;
+                margin-bottom: 20px;
+                max-width: 100%;
+                line-height: 1.45;
+            }
+
+            .hero-left .btn-primary {
+                padding: 11px 26px;
+                font-size: 0.65rem;
+                margin-top: 12px;
+                gap: 6px;
+            }
+
+            .hero-left .btn-primary i {
+                font-size: 0.75rem;
+            }
+
+            .hero-right {
+                margin-top: 0;
+                max-width: 380px;
+                gap: 65px;
+                margin-right: 0;
+            }
+
+            .hero-stats {
+                gap: 45px;
+            }
+
+            .stat-item {
+                gap: 13px;
+            }
+
+            .stat-icon {
+                font-size: 1.5rem;
+                margin-left: -1rem;
+                width: 30px;
+            }
+
+            .stat-number {
+                font-size: 1.95rem;
+                min-width: 75px;
+                line-height: 1;
+            }
+
+            .stat-text {
+                min-width: 170px;
+                gap: 2px;
+            }
+
+            .stat-text p:first-child {
+                font-size: 0.7rem;
+                letter-spacing: 0.8px;
+            }
+
+            .stat-text p:last-child {
+                font-size: 0.65rem;
+            }
+
+            .hero-watermark {
+                display: flex;
+            }
+
+            .hero-watermark img {
+                width: 300%;
+                height: 300%;
+                margin-top: 25rem;
+                margin-left: 2rem;
+                opacity: 0.5;
+            }
+
+            .hero-social-icons {
+                bottom: 65px;
+                opacity: 0.55;
+            }
+
+            .icon-circle {
+                width: 38px;
+                height: 38px;
+                font-size: 1.4rem;
+            }
+
+            .icon-row {
+                gap: 9px;
+            }
+
+            .social-label {
+                font-size: 0.65rem;
+            }
+
+            /* SEÇÃO SOBRE */
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 14px;
+                padding-bottom: 10px;
+            }
+
+            .section-title::after {
+                width: 45px;
+            }
+
+            .section-subtitle {
+                font-size: 0.8rem;
+                margin: 0 auto 35px;
+                line-height: 1.5;
+            }
+
+            .about-content {
+                gap: 45px;
+                align-items: flex-start;
+            }
+
+            .about-photo {
+                flex: 0 0 260px;
+                box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            }
+
+            .about-text {
+                flex: 1;
+                padding-top: 0;
+            }
+
+            .about-text h2 {
+                font-size: 1.5rem;
+                margin-bottom: 4px;
+                font-weight: 600;
+            }
+
+            .about-text .oab {
+                font-size: 0.75rem;
+                margin-top: -0.2rem;
+                margin-bottom: 10px;
+                letter-spacing: 1.2px;
+                font-weight: 800;
+                text-transform: uppercase;
+            }
+
+            .about-text p {
+                font-size: 0.62rem;
+                line-height: 1.5;
+                margin-bottom: 8px;
+                font-weight: 400;
+                text-align: justify;
+            }
+
+            .about-highlights {
+                gap: 12px 18px;
+                margin-top: 16px;
+                padding-top: 16px;
+                grid-template-columns: repeat(2, 1fr);
+                border-top: 1px solid var(--linha);
+            }
+
+            .highlight-item {
+                font-size: 0.58rem;
+                gap: 6px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.4px;
+            }
+
+            .highlight-item i {
+                font-size: 0.8rem;
+            }
+
+            /* ÁREAS DE ATUAÇÃO */
+            .areas-subsection {
+                margin-top: 28px;
+                padding-top: 35px;
+                border-top: 3px solid var(--linha);
+            }
+
+            .areas-subtitle {
+                font-size: 1.4rem;
+                margin-top: -1.3rem;
+                margin-bottom: 7px;
+                letter-spacing: 0.8px;
+                font-weight: 600;
+            }
+
+            .areas-description {
+                font-size: 0.7rem;
+                margin-bottom: 28px;
+                line-height: 1.5;
+                font-weight: 400;
+            }
+
+            .areas-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 22px;
+                margin-bottom: 0;
+            }
+
+            .area-card {
+                padding: 16px 12px;
+                box-shadow: 0 6px 24px rgba(59, 46, 24, 0.3);
+            }
+
+            .area-card h3,
+            .area-card h4 {
+                font-size: 0.85rem;
+                margin-bottom: 7px;
+                letter-spacing: 0.9px;
+                font-weight: 700;
+            }
+
+            .area-card .icon {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 13px;
+                box-shadow: 0 8px 16px rgba(168, 140, 74, 0.08);
+            }
+
+            .area-card .icon img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .area-card .card-text {
+                font-size: 0.65rem;
+                line-height: 1.5;
+            }
+
+            .area-card .expand-hint {
+                font-size: 0.85rem;
+                margin-bottom: -1.5rem;
+            }
+
+            .area-card .close-btn {
+                font-size: 0.65rem;
+                gap: 4px;
+                margin-top: 8px;
+            }
+
+            .area-card .close-btn i {
+                font-size: 0.75rem;
+            }
+
+            /* CONTATO */
+            .contact-wrapper {
+                gap: 45px;
+                margin-top: 35px;
+            }
+
+            .contact-info {
+                flex: 0 0 auto;
+                min-width: 290px;
+                padding-left: 28px;
+            }
+
+            .info-item {
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+
+            .info-item i {
+                font-size: 1.1rem;
+                margin-top: 0;
+            }
+
+            .info-item p {
+                font-size: 0.72rem;
+                line-height: 1.5;
+            }
+
+            .info-item p strong {
+                font-size: 0.62rem;
+                margin-bottom: 2px;
+                letter-spacing: 0.3px;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+
+            .info-item p a {
+                font-size: 0.72rem;
+            }
+
+            .contact-info .btn-primary {
+                padding: 10px 26px;
+                font-size: 0.62rem;
+                margin-top: 8px;
+            }
+
+            .desktop-social {
+                display: block;
+                margin-top: 12px;
+            }
+
+            .social-links-label {
+                font-size: 0.52rem;
+                margin: 12px 0 8px 0;
+                letter-spacing: 0.8px;
+                text-transform: uppercase;
+                font-weight: 600;
+            }
+
+            .social-links {
+                gap: 7px;
+                margin-bottom: 20px;
+            }
+
+            .social-link {
+                width: 36px;
+                height: 36px;
+                font-size: 0.8rem;
+            }
+
+            .map-container,
+            .map-container iframe {
+                min-height: 350px;
+            }
+
+            /* FOOTER */
+            .footer-scroll span {
+                padding: 0 18px;
+                font-size: 0.4rem;
+            }
+        }
     </style>
 </head>
 
@@ -2310,8 +2602,11 @@
 
         <!-- HERO -->
         <section class="hero" id="home">
-            <video class="hero-video-background" autoplay muted loop playsinline>
+            <video class="hero-video-desktop" autoplay muted loop playsinline>
                 <source src="videos/capa.mp4" type="video/mp4">
+            </video>
+            <video class="hero-video-mobile" autoplay muted loop playsinline>
+                <source src="videos/vertical.mp4" type="video/mp4">
             </video>
 
             <div class="hero-watermark">

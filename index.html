@@ -1006,7 +1006,6 @@
             border-radius: 5px;
             z-index: 20;
             padding: 25px 18px;
-            /* ← reduzido de 30px 20px */
             position: relative;
             text-align: center;
             transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -1026,12 +1025,18 @@
             font-size: 1.1rem;
             /* ← reduzido de 1.23rem */
             color: var(--cinza-escuro);
-            margin-bottom: 12px;
+            margin-bottom: -2rem;
             /* ← reduzido de 15px */
             letter-spacing: 1.2px;
             font-weight: 700;
             transition: color 0.4s ease;
+                transition: margin-bottom 0.7s ease, color 0.4s ease;   /* já existia color, adicione margin-bottom */
+
         }
+
+        .area-card.expanded h4 {
+    margin-bottom: 20px;   /* ajuste o valor conforme preferir */
+}
 
         .area-card .icon {
             font-size: 2.5rem;
@@ -1091,7 +1096,7 @@
             background-color: transparent;
             border-radius: 5px;
             z-index: 20;
-            padding: 30px 20px;
+            padding: 20px 20px;
             /* reduz o espaço vertical */
             position: relative;
             text-align: center;
@@ -1203,6 +1208,8 @@
             font-weight: 400;
             line-height: 1.85;
             font-size: 0.95rem;
+            pointer-events: none;
+            overflow: hidden;
         }
 
         /* BOTÃO FECHAR (oculto por padrão) */
@@ -1237,22 +1244,38 @@
             }
         }
 
+        /* Remove os estilos antigos do .expand-hint e use ESTE */
         .area-card .expand-hint {
-            margin-top: 10px;
-            font-size: 1rem;
+            position: absolute;
+            bottom: -9px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
             color: var(--dourado);
-            opacity: 0.7;
-            margin-bottom: -2.5rem;
-            /* Transição LENTA para quando o "+" reaparecer (card fechado) */
-            transition: opacity 1.2s ease 0.3s, transform 1.2s ease 0.3s;
+            background: var(--fundo-claro);
+            border: 1.5px solid rgba(168, 140, 74, 0.3);
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 0.9s ease;
+            z-index: 3;
+            pointer-events: auto;
         }
 
+        /* Garanta que o ícone principal tenha posição relativa para o absoluto funcionar */
+        .area-card .icon {
+            position: relative;
+            /* JÁ EXISTE, mas confirme */
+        }
+
+        /* Quando expandido, mantenha o "+" escondido */
         .area-card.expanded .expand-hint {
             opacity: 0;
-            transform: scale(0.8);
             pointer-events: none;
-            /* Transição RÁPIDA para quando o "+" sumir (card expandido) */
-            transition: opacity 0.25s ease, transform 0.25s ease;
         }
 
         /* CARD EXPANDIDO */
@@ -1262,6 +1285,7 @@
             opacity: 1;
             margin-top: 5px;
             margin-bottom: 15px;
+            pointer-events: auto;
         }
 
         .area-card.expanded .close-btn {
@@ -1810,7 +1834,7 @@
 
 
             .area-card {
-                background-color: var(--fundo-claro);
+                background-color: transparent;
             }
 
             .section {
@@ -2638,10 +2662,10 @@
 
         <!-- HERO -->
         <section class="hero" id="home">
- <video id="heroVideo" autoplay muted loop playsinline preload="auto" class="hero-video"
-    poster="img/poster.jpg">
-    <source src="videos/capa.mp4" type="video/mp4">
-</video>
+            <video id="heroVideo" autoplay muted loop playsinline preload="auto" class="hero-video"
+                poster="img/poster.jpg">
+                <source src="videos/capa.mp4" type="video/mp4">
+            </video>
 
             <div class="hero-watermark">
                 <img src="img/marca.svg" alt="">
@@ -2710,7 +2734,10 @@
         <section class="section" id="sobre">
             <div class="container">
                 <div class="about-content">
-                    <div class="about-photo fade-in-up"><img src="img/silvana.jpg" alt="Dra. Silvana Silva"></div>
+                    <div class="about-photo fade-in-up" oncontextmenu="return false;">
+                        <img src="img/silvana.jpg" alt="Dra. Silvana Silva" draggable="false">
+                        <div class="photo-protection-overlay"></div>
+                    </div>
                     <div class="about-text fade-in-up">
                         <h2>Dra. Silvana Silva</h2>
                         <p class="oab">OAB/SC 37.489</p>
@@ -2740,9 +2767,11 @@
 
                     <div class="areas-grid">
                         <div class="area-card fade-in-up">
-                            <div class="icon"><img src="img/fami.png" alt="Ícone Direito de Família"></div>
+                            <div class="icon">
+                                <img src="img/fami.png" alt="Ícone Direito de Família">
+                                <div class="expand-hint"><i class="fa-solid fa-plus"></i></div>
+                            </div>
                             <h4>Família e Sucessões</h4>
-                            <div class="expand-hint"><i class="fa-solid fa-plus"></i></div>
                             <p class="card-text">Atuação em divórcios, guarda de filhos, pensão alimentícia,
                                 inventários,
                                 partilhas e demais áreas da família.</p>
@@ -2750,18 +2779,22 @@
                         </div>
 
                         <div class="area-card fade-in-up">
-                            <div class="icon"><img src="img/consumi.png" alt="Ícone Direito do Consumidor"></div>
+                            <div class="icon">
+                                <img src="img/consumi.png" alt="Ícone Direito do Consumidor">
+                                <div class="expand-hint"><i class="fa-solid fa-plus"></i></div>
+                            </div>
                             <h4>Direito do Consumidor</h4>
-                            <div class="expand-hint"><i class="fa-solid fa-plus"></i></div>
                             <p class="card-text">Defesa contra abusos em compras, serviços, bancos e planos de saúde.
                                 Trabalhando para restabelecer seus direitos.</p>
                             <button class="close-btn"><i class="fa-solid fa-xmark"></i> Fechar</button>
                         </div>
 
                         <div class="area-card fade-in-up">
-                            <div class="icon"><img src="img/media.png" alt="Ícone Mediação"></div>
+                            <div class="icon">
+                                <img src="img/media.png" alt="Ícone Mediação">
+                                <div class="expand-hint"><i class="fa-solid fa-plus"></i></div>
+                            </div>
                             <h4>Mediação e Consultoria</h4>
-                            <div class="expand-hint"><i class="fa-solid fa-plus"></i></div>
                             <p class="card-text">Soluções extrajudiciais que preservam relacionamentos e economizam
                                 tempo e
                                 recursos para todos os envolvidos.</p>
@@ -2770,76 +2803,50 @@
                     </div>
                 </div>
             </div>
-        </section>
+    </div>
+    </section>
 
 
-        <!-- CONTATO -->
-        <section class="section" id="contato">
-            <div class="container">
-                <h2 class="section-title fade-in-up">Localização &amp; Contato</h2>
-                <div class="contact-wrapper">
-                    <div class="contact-info fade-in-up">
-                        <div class="info-item">
-                            <i class="fa-solid fa-location-dot"></i>
-                            <div>
-                                <p>
-                                    <strong>Endereço</strong>
-                                    <a href="https://maps.google.com/?q=Rua+Jos%C3%A9+Brognoli,+117,+Saco+dos+Lim%C3%B5es,+Florian%C3%B3polis+SC"
-                                        target="_blank" rel="noopener">
-                                        Rua José Brognoli, nº 117, Saco dos Limões<br>Opportunitá Empresarial, Sala 603
-                                        <br> Florianópolis/SC – CEP 88.045-520
-                                    </a>
-                                </p>
-                            </div>
+    <!-- CONTATO -->
+    <section class="section" id="contato">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Localização &amp; Contato</h2>
+            <div class="contact-wrapper">
+                <div class="contact-info fade-in-up">
+                    <div class="info-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <p>
+                                <strong>Endereço</strong>
+                                <a href="https://maps.google.com/?q=Rua+Jos%C3%A9+Brognoli,+117,+Saco+dos+Lim%C3%B5es,+Florian%C3%B3polis+SC"
+                                    target="_blank" rel="noopener">
+                                    Rua José Brognoli, nº 117, Saco dos Limões<br>Opportunitá Empresarial, Sala 603
+                                    <br> Florianópolis/SC – CEP 88.045-520
+                                </a>
+                            </p>
                         </div>
-                        <div class="info-item">
-                            <i class="fa-solid fa-phone"></i>
-                            <div>
-                                <p>
-                                    <strong>Telefone</strong>
-                                    <a href="tel:+5548991619100">(48) 99161-9100</a>
-                                </p>
-                            </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <div>
+                            <p>
+                                <strong>Telefone</strong>
+                                <a href="tel:+5548991619100">(48) 99161-9100</a>
+                            </p>
                         </div>
-                        <div class="info-item">
-                            <i class="fa-solid fa-envelope"></i>
-                            <div>
-                                <p>
-                                    <strong>E-mail</strong>
-                                    <a href="mailto:silvana@silvanasilva.adv.br">silvana@silvanasilva.adv.br</a>
-                                </p>
-                            </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <div>
+                            <p>
+                                <strong>E-mail</strong>
+                                <a href="mailto:silvana@silvanasilva.adv.br">silvana@silvanasilva.adv.br</a>
+                            </p>
                         </div>
-
-                        <!-- Outros Canais (desktop) -->
-                        <div class="desktop-social">
-                            <span class="social-links-label">Outros Canais</span>
-                            <div class="social-links">
-                                <a href="https://wa.me/5548991619100" target="_blank" class="social-link"><i
-                                        class="fa-brands fa-whatsapp"></i></a>
-                                <a href="https://instagram.com/silvanasilva.adv" target="_blank" class="social-link"><i
-                                        class="fa-brands fa-instagram"></i></a>
-                                <a href="mailto:silvana@silvanasilva.adv.br" class="social-link"><i
-                                        class="fa-solid fa-envelope"></i></a>
-                                <a href="https://www.linkedin.com/in/silvana-silva-a6b92965?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
-                                    target="_blank" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
-                            </div>
-                        </div>
-
-                        <a href="https://wa.me/5548991619100?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta."
-                            target="_blank" class="btn-primary">
-                            <i class="fa-solid fa-message"></i> Enviar Mensagem
-                        </a>
                     </div>
 
-                    <div class="map-container fade-in-up">
-                        <iframe
-                            src="https://maps.google.com/maps?q=Rua%20Jos%C3%A9%20Brognoli%2C%20117%2C%20Saco%20dos%20Lim%C3%B5es%2C%20Florian%C3%B3polis%2C%20SC&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-
-                    <!-- Outros Canais (mobile) -->
-                    <div class="mobile-social">
+                    <!-- Outros Canais (desktop) -->
+                    <div class="desktop-social">
                         <span class="social-links-label">Outros Canais</span>
                         <div class="social-links">
                             <a href="https://wa.me/5548991619100" target="_blank" class="social-link"><i
@@ -2852,30 +2859,57 @@
                                 target="_blank" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
                         </div>
                     </div>
+
+                    <a href="https://wa.me/5548991619100?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta."
+                        target="_blank" class="btn-primary">
+                        <i class="fa-solid fa-message"></i> Enviar Mensagem
+                    </a>
+                </div>
+
+                <div class="map-container fade-in-up">
+                    <iframe
+                        src="https://maps.google.com/maps?q=Rua%20Jos%C3%A9%20Brognoli%2C%20117%2C%20Saco%20dos%20Lim%C3%B5es%2C%20Florian%C3%B3polis%2C%20SC&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+
+                <!-- Outros Canais (mobile) -->
+                <div class="mobile-social">
+                    <span class="social-links-label">Outros Canais</span>
+                    <div class="social-links">
+                        <a href="https://wa.me/5548991619100" target="_blank" class="social-link"><i
+                                class="fa-brands fa-whatsapp"></i></a>
+                        <a href="https://instagram.com/silvanasilva.adv" target="_blank" class="social-link"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="mailto:silvana@silvanasilva.adv.br" class="social-link"><i
+                                class="fa-solid fa-envelope"></i></a>
+                        <a href="https://www.linkedin.com/in/silvana-silva-a6b92965?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+                            target="_blank" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- FOOTER COM SCROLL INFINITO -->
-        <footer>
-            <div class="footer-scroll">
-                <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
-                    representação</span>
-                <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
-                    representação</span>
-                <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados</span>
-                <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
-                    representação</span>
-                <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
-                    representação</span>
-                <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
-                    representação</span>
-                <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
-                    representação</span>
-                <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
-                    representação</span>
-            </div>
-        </footer>
+    <!-- FOOTER COM SCROLL INFINITO -->
+    <footer>
+        <div class="footer-scroll">
+            <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
+                representação</span>
+            <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
+                representação</span>
+            <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados</span>
+            <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
+                representação</span>
+            <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
+                representação</span>
+            <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
+                representação</span>
+            <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
+                representação</span>
+            <span>Silvana Silva Advocacia | 2026 | Todos os direitos reservados | Imagens utilizadas para fins de
+                representação</span>
+        </div>
+    </footer>
     </div>
 
     <script>
@@ -2885,86 +2919,86 @@
         const splash = document.getElementById('splash');
         const mainContent = document.getElementById('main-content');
 
-      // ⬇️ BLOCO OTIMIZADO – Autoplay garantido no mobile
-let currentVideoSrc = null;
+        // ⬇️ BLOCO OTIMIZADO – Autoplay garantido no mobile
+        let currentVideoSrc = null;
 
-function setHeroVideoSource() {
-    const video = document.getElementById('heroVideo');
-    if (!video) return;
+        function setHeroVideoSource() {
+            const video = document.getElementById('heroVideo');
+            if (!video) return;
 
-    const isMobilePortrait = window.matchMedia('(max-width: 576px) and (orientation: portrait)').matches;
-    const newSrc = isMobilePortrait ? 'videos/vert.mp4' : 'videos/capa.mp4';
+            const isMobilePortrait = window.matchMedia('(max-width: 576px) and (orientation: portrait)').matches;
+            const newSrc = isMobilePortrait ? 'videos/vert.mp4' : 'videos/capa.mp4';
 
-    // ⭐ Só carrega novo vídeo se mudou de viewport
-    if (currentVideoSrc === newSrc) {
-        return; // Já está carregado, não faz nada
-    }
+            // ⭐ Só carrega novo vídeo se mudou de viewport
+            if (currentVideoSrc === newSrc) {
+                return; // Já está carregado, não faz nada
+            }
 
-    currentVideoSrc = newSrc;
-    const source = video.querySelector('source');
+            currentVideoSrc = newSrc;
+            const source = video.querySelector('source');
 
-    // Pausa MUITO BREVEMENTE antes de trocar
-    const wasPaused = video.paused;
-    const currentTime = video.currentTime;
-    
-    // Muda a fonte
-    source.setAttribute('src', newSrc);
-    video.load();
+            // Pausa MUITO BREVEMENTE antes de trocar
+            const wasPaused = video.paused;
+            const currentTime = video.currentTime;
 
-    // Assim que o vídeo estiver carregado, volta a tocar
-    video.addEventListener('canplay', () => {
-        video.currentTime = Math.min(currentTime, video.duration);
-        
-        // ⭐ FORÇA O PLAY AUTOMATICAMENTE
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-            playPromise
-                .then(() => {
-                    console.log('✅ Vídeo começou a tocar automaticamente');
-                })
-                .catch((error) => {
-                    console.log('⚠️ Autoplay bloqueado, tentando com click:', error);
-                    // Fallback: toca no primeiro clique
-                    document.addEventListener('click', () => {
-                        video.play().catch(() => { });
-                    }, { once: true });
-                });
+            // Muda a fonte
+            source.setAttribute('src', newSrc);
+            video.load();
+
+            // Assim que o vídeo estiver carregado, volta a tocar
+            video.addEventListener('canplay', () => {
+                video.currentTime = Math.min(currentTime, video.duration);
+
+                // ⭐ FORÇA O PLAY AUTOMATICAMENTE
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            console.log('✅ Vídeo começou a tocar automaticamente');
+                        })
+                        .catch((error) => {
+                            console.log('⚠️ Autoplay bloqueado, tentando com click:', error);
+                            // Fallback: toca no primeiro clique
+                            document.addEventListener('click', () => {
+                                video.play().catch(() => { });
+                            }, { once: true });
+                        });
+                }
+            }, { once: true });
         }
-    }, { once: true });
-}
 
-// ⭐ Inicia IMEDIATAMENTE
-setHeroVideoSource();
-
-// Se não tocou na carga, toca quando o splash fecha
-window.addEventListener('load', () => {
-    const video = document.getElementById('heroVideo');
-    setTimeout(() => {
-        if (video && video.paused) {
-            console.log('🎬 Tentando tocar vídeo após splash...');
-            video.play().catch(err => console.log('Erro:', err));
-        }
-    }, 500); // Espera 500ms após o splash desaparecer
-});
-
-// Continua rodando em background
-let lastBreakpoint = window.innerWidth <= 576 ? 'mobile' : 'desktop';
-
-window.addEventListener('resize', () => {
-    const newBreakpoint = window.innerWidth <= 576 ? 'mobile' : 'desktop';
-    if (lastBreakpoint !== newBreakpoint) {
-        lastBreakpoint = newBreakpoint;
+        // ⭐ Inicia IMEDIATAMENTE
         setHeroVideoSource();
-    }
-});
 
-document.addEventListener('visibilitychange', () => {
-    const video = document.getElementById('heroVideo');
-    if (!document.hidden && video && video.paused) {
-        video.play().catch(() => { });
-    }
-});
-// ⬆️ FIM DO BLOCO OTIMIZADO
+        // Se não tocou na carga, toca quando o splash fecha
+        window.addEventListener('load', () => {
+            const video = document.getElementById('heroVideo');
+            setTimeout(() => {
+                if (video && video.paused) {
+                    console.log('🎬 Tentando tocar vídeo após splash...');
+                    video.play().catch(err => console.log('Erro:', err));
+                }
+            }, 500); // Espera 500ms após o splash desaparecer
+        });
+
+        // Continua rodando em background
+        let lastBreakpoint = window.innerWidth <= 576 ? 'mobile' : 'desktop';
+
+        window.addEventListener('resize', () => {
+            const newBreakpoint = window.innerWidth <= 576 ? 'mobile' : 'desktop';
+            if (lastBreakpoint !== newBreakpoint) {
+                lastBreakpoint = newBreakpoint;
+                setHeroVideoSource();
+            }
+        });
+
+        document.addEventListener('visibilitychange', () => {
+            const video = document.getElementById('heroVideo');
+            if (!document.hidden && video && video.paused) {
+                video.play().catch(() => { });
+            }
+        });
+        // ⬆️ FIM DO BLOCO OTIMIZADO
 
 
 

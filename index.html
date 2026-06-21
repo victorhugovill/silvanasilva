@@ -397,9 +397,7 @@
             z-index: 15;
         }
 
-        /* Vídeo padrão (desktop) */
-        .hero-video-desktop {
-            display: block;
+        .hero-video {
             position: absolute;
             top: 0;
             left: 0;
@@ -408,30 +406,6 @@
             object-fit: cover;
             z-index: 0;
             pointer-events: none;
-        }
-
-        /* Vídeo mobile começa escondido */
-        .hero-video-mobile {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* Quando a tela for pequena (mobile portrait): esconde desktop e mostra mobile */
-        @media (max-width: 576px) and (orientation: portrait) {
-            .hero-video-desktop {
-                display: none;
-            }
-
-            .hero-video-mobile {
-                display: block;
-            }
         }
 
         .hero .container {
@@ -2602,12 +2576,9 @@
 
         <!-- HERO -->
         <section class="hero" id="home">
-            <video class="hero-video-desktop" autoplay muted loop playsinline>
-                <source src="videos/capa.mp4" type="video/mp4">
-            </video>
-            <video class="hero-video-mobile" autoplay muted loop playsinline>
-                <source src="videos/vertical.mp4" type="video/mp4">
-            </video>
+<video id="heroVideo" autoplay muted loop playsinline preload="auto" class="hero-video">
+    <source src="" type="video/mp4">
+</video>
 
             <div class="hero-watermark">
                 <img src="img/marca.svg" alt="">
@@ -2851,6 +2822,27 @@
         const splash = document.getElementById('splash');
         const mainContent = document.getElementById('main-content');
 
+        // ⬇️ NOVO BLOCO – Seleciona o vídeo correto conforme a tela
+        function setHeroVideoSource() {
+            const video = document.getElementById('heroVideo');
+            if (!video) return;
+            const isMobilePortrait = window.matchMedia('(max-width: 576px) and (orientation: portrait)').matches;
+            const source = video.querySelector('source');
+            
+            if (isMobilePortrait) {
+                source.setAttribute('src', 'videos/vertical.mp4');
+            } else {
+                source.setAttribute('src', 'videos/capa.mp4');
+            }
+            
+            video.load();
+            video.play().catch(() => {});
+        }
+
+        window.addEventListener('load', setHeroVideoSource);
+        window.addEventListener('resize', setHeroVideoSource);
+        // ⬆️ FIM DO NOVO BLOCO
+        
         function scrollToSectionMobile(sectionId, extraOffset = 0) {
             const targetSection = document.getElementById(sectionId);
             if (!targetSection) return;

@@ -401,22 +401,22 @@
             z-index: 15;
         }
 
-.hero-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    z-index: 0;
-    pointer-events: none;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    contain: layout style paint;
-    will-change: auto;
-    transform: translate3d(0, 0, 0);
-}
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
+            pointer-events: none;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            contain: layout style paint;
+            will-change: auto;
+            transform: translate3d(0, 0, 0);
+        }
 
         .hero .container {
             display: flex;
@@ -1744,12 +1744,14 @@
                 padding: 5px 0 54px;
             }
 
-                        .hero {
-                padding-top: 70px;      /* ← novo, era 130px implícito da MQ 768px */
+            .hero {
+                padding-top: 70px;
+                /* ← novo, era 130px implícito da MQ 768px */
             }
 
             .hero .container {
-                margin-top: -6rem;      /* ← era -6rem, mais negativo sobe tudo */
+                margin-top: -6rem;
+                /* ← era -6rem, mais negativo sobe tudo */
             }
 
             /* Troca a imagem no mobile */
@@ -2636,14 +2638,8 @@
 
         <!-- HERO -->
         <section class="hero" id="home">
-<video id="heroVideo" 
-       autoplay 
-       muted 
-       loop 
-       playsinline 
-       preload="metadata"
-       class="hero-video"
-       poster="img/poster.jpg">
+ <video id="heroVideo" autoplay muted loop playsinline preload="auto" class="hero-video"
+    poster="img/poster.jpg">
     <source src="videos/capa.mp4" type="video/mp4">
 </video>
 
@@ -2889,7 +2885,7 @@
         const splash = document.getElementById('splash');
         const mainContent = document.getElementById('main-content');
 
-// ⬇️ BLOCO OTIMIZADO – Carrega vídeos sem bugs
+      // ⬇️ BLOCO OTIMIZADO – Autoplay garantido no mobile
 let currentVideoSrc = null;
 
 function setHeroVideoSource() {
@@ -2898,64 +2894,70 @@ function setHeroVideoSource() {
 
     const isMobilePortrait = window.matchMedia('(max-width: 576px) and (orientation: portrait)').matches;
     const newSrc = isMobilePortrait ? 'videos/vert.mp4' : 'videos/capa.mp4';
-    
+
     // ⭐ Só carrega novo vídeo se mudou de viewport
     if (currentVideoSrc === newSrc) {
         return; // Já está carregado, não faz nada
     }
-    
+
     currentVideoSrc = newSrc;
     const source = video.querySelector('source');
-    const currentTime = video.currentTime; // Salva tempo atual
-    
-    // Pausa antes de trocar
-    video.pause();
-    video.style.opacity = '0.5'; // Feedback visual
+
+    // Pausa MUITO BREVEMENTE antes de trocar
+    const wasPaused = video.paused;
+    const currentTime = video.currentTime;
     
     // Muda a fonte
     source.setAttribute('src', newSrc);
     video.load();
-    
-    // Espera o vídeo estar pronto
-    video.addEventListener('loadedmetadata', () => {
+
+    // Assim que o vídeo estiver carregado, volta a tocar
+    video.addEventListener('canplay', () => {
         video.currentTime = Math.min(currentTime, video.duration);
-        video.style.opacity = '1';
         
+        // ⭐ FORÇA O PLAY AUTOMATICAMENTE
         const playPromise = video.play();
         if (playPromise !== undefined) {
-            playPromise.catch(() => {
-                // Fallback se autoplay for bloqueado
-                document.addEventListener('click', () => video.play(), { once: true });
-            });
+            playPromise
+                .then(() => {
+                    console.log('✅ Vídeo começou a tocar automaticamente');
+                })
+                .catch((error) => {
+                    console.log('⚠️ Autoplay bloqueado, tentando com click:', error);
+                    // Fallback: toca no primeiro clique
+                    document.addEventListener('click', () => {
+                        video.play().catch(() => { });
+                    }, { once: true });
+                });
         }
     }, { once: true });
 }
 
-// ⭐ Inicia IMEDIATAMENTE ao carregar o script
+// ⭐ Inicia IMEDIATAMENTE
 setHeroVideoSource();
 
-// Reproduz quando splash termina (backup)
+// Se não tocou na carga, toca quando o splash fecha
 window.addEventListener('load', () => {
     const video = document.getElementById('heroVideo');
-    if (video && video.paused) {
-        video.play().catch(() => { });
-    }
+    setTimeout(() => {
+        if (video && video.paused) {
+            console.log('🎬 Tentando tocar vídeo após splash...');
+            video.play().catch(err => console.log('Erro:', err));
+        }
+    }, 500); // Espera 500ms após o splash desaparecer
 });
 
-// ⭐ OTIMIZADO: Só recarrega quando viewport REALMENTE muda (desktop ↔ mobile)
+// Continua rodando em background
 let lastBreakpoint = window.innerWidth <= 576 ? 'mobile' : 'desktop';
 
 window.addEventListener('resize', () => {
     const newBreakpoint = window.innerWidth <= 576 ? 'mobile' : 'desktop';
-    
-    // Só executa se mudou entre mobile e desktop
     if (lastBreakpoint !== newBreakpoint) {
         lastBreakpoint = newBreakpoint;
         setHeroVideoSource();
     }
 });
 
-// Garante que o vídeo continua rodando
 document.addEventListener('visibilitychange', () => {
     const video = document.getElementById('heroVideo');
     if (!document.hidden && video && video.paused) {
@@ -2963,6 +2965,10 @@ document.addEventListener('visibilitychange', () => {
     }
 });
 // ⬆️ FIM DO BLOCO OTIMIZADO
+
+
+
+
         function scrollToSectionMobile(sectionId, extraOffset = 0) {
             const targetSection = document.getElementById(sectionId);
             if (!targetSection) return;
